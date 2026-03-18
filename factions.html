@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Factions — Caladan Wiki</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+:root{--bg-deep:#05050d;--bg-base:#09091a;--bg-surface:#0d0d24;--bg-card:#0f0f2a;--bg-card-hover:#141438;--border:#1e1e4a;--border-bright:#2a2a6a;--gold:#c4962a;--gold-bright:#e8b84b;--gold-dim:#7a5c1a;--cold:#3a7fd4;--cold-bright:#5a9ff4;--cold-dim:#1a3a6a;--text-primary:#e8dfc8;--text-secondary:#9a8f78;--text-dim:#5a5248;--red:#c44a3a;--red-bright:#e46a5a;--scan:rgba(255,255,255,0.012)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg-deep);color:var(--text-primary);font-family:'Crimson Text',Georgia,serif;font-size:1.05rem;line-height:1.7;min-height:100vh;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scan) 2px,var(--scan) 4px);pointer-events:none;z-index:1000}
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;background:linear-gradient(180deg,rgba(5,5,13,.98),rgba(5,5,13,.88));border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-inner{max-width:1350px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-bright);text-decoration:none;letter-spacing:.18em;text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:.45rem 1rem;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,background .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-bright);background:rgba(196,150,42,.06)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold)}
+.wrap{max-width:1350px;margin:0 auto;padding:0 2rem;padding-top:60px}
+.page-header{padding:3.5rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;position:relative}
+.page-header::before{content:'';position:absolute;bottom:-1px;left:0;width:180px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.ph-eye{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.3em;color:var(--cold);text-transform:uppercase;margin-bottom:.6rem}
+.ph-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.ph-title em{color:var(--gold-bright);font-style:normal}
+.ph-lead{font-size:1.1rem;font-style:italic;color:var(--text-secondary);max-width:680px}
+.sh{margin-bottom:1.75rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);position:relative}
+.sh::after{content:'';position:absolute;bottom:-1px;left:0;width:70px;height:1px;background:var(--gold)}
+.sh-eye{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--cold-bright);text-transform:uppercase;margin-bottom:.3rem;opacity:.75}
+.sh-title{font-family:'Cinzel',serif;font-size:1.25rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.card{background:var(--bg-card);border:1px solid var(--border);padding:1.5rem;position:relative;transition:all .2s}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold-dim);transition:background .2s}
+.card:hover{border-color:var(--border-bright);background:var(--bg-card-hover);transform:translateY(-2px)}
+.card:hover::before{background:var(--gold)}
+.card-meta{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-bottom:.4rem;opacity:.8}
+.card-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:.6rem}
+.card p{color:var(--text-secondary);font-size:.9rem;line-height:1.6}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.data-table{width:100%;border-collapse:collapse;font-size:.88rem;margin:1.25rem 0}
+.data-table th{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--border-bright);background:rgba(196,150,42,.04)}
+.data-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top}
+.data-table tr:hover td{background:rgba(196,150,42,.03);color:var(--text-primary)}
+.data-table td:first-child{color:var(--text-primary);font-weight:600}
+.lore-q{background:var(--bg-surface);border-left:3px solid var(--gold);padding:1.4rem 1.75rem;margin:2rem 0;font-style:italic;color:var(--text-secondary);position:relative;font-size:1.02rem;line-height:1.75}
+.lore-q::before{content:'"';position:absolute;top:-.5rem;left:1.4rem;font-family:'Cinzel',serif;font-size:3.5rem;color:var(--gold-dim);line-height:1;pointer-events:none}
+.badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.18rem .55rem;border:1px solid currentColor}
+.bg{color:var(--gold);border-color:var(--gold-dim);background:rgba(196,150,42,.07)}
+.bc{color:var(--cold-bright);border-color:var(--cold-dim);background:rgba(58,127,212,.07)}
+.br{color:var(--red-bright);border-color:var(--red);background:rgba(196,74,58,.07)}
+.bd{color:var(--text-dim);border-color:var(--text-dim);background:transparent}
+.alert{padding:.9rem 1.4rem;border:1px solid var(--border);margin:1.25rem 0;display:flex;gap:.9rem;align-items:flex-start}
+.alert-icon{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gold);white-space:nowrap;padding-top:.12rem}
+.alert-body{font-size:.88rem;color:var(--text-secondary)}
+.acc{border:1px solid var(--border);margin-bottom:.4rem}
+.acc-t{width:100%;padding:.9rem 1.4rem;background:var(--bg-card);border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-primary);transition:background .2s,color .2s;text-align:left}
+.acc-t:hover{background:var(--bg-card-hover);color:var(--gold-bright)}
+.acc-t.open{color:var(--gold-bright);border-bottom:1px solid var(--border)}
+.acc-icon{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--gold-dim);transition:transform .2s}
+.acc-t.open .acc-icon{transform:rotate(45deg)}
+.acc-b{display:none;padding:1.4rem;background:var(--bg-base);font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+.acc-b.open{display:block}
+.prose{max-width:760px}
+.prose h2{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright);margin:2.25rem 0 .9rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
+.prose h3{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--text-primary);margin:1.6rem 0 .65rem}
+.prose p{margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose p strong{color:var(--text-primary);font-weight:600}
+.prose ul,.prose ol{padding-left:1.4rem;margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose li{margin-bottom:.35rem}
+.prose li::marker{color:var(--gold-dim)}
+.ls-2sided{display:grid;grid-template-columns:1fr 270px;gap:2.5rem;align-items:start}
+.sidebar{position:sticky;top:76px}
+.snav{background:var(--bg-card);border:1px solid var(--border);padding:1.4rem}
+.snav-t{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.snav ul{list-style:none}
+.snav li{border-bottom:1px solid var(--border)}
+.snav a{display:block;padding:.55rem .45rem;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,padding-left .2s}
+.snav a:hover{color:var(--gold-bright);padding-left:.7rem}
+.footer{margin-top:4.5rem;padding:1.75rem 2rem;border-top:1px solid var(--border);text-align:center}
+.footer-t{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase}
+.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}.mb3{margin-bottom:1.5rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:3rem}.mt3{margin-top:1.5rem}.mt4{margin-top:2rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.f1{animation:fadeUp .55s .08s ease both}.f2{animation:fadeUp .55s .2s ease both}.f3{animation:fadeUp .55s .32s ease both}.f4{animation:fadeUp .55s .44s ease both}
+@media(max-width:900px){.ls-2sided{grid-template-columns:1fr}.sidebar{position:static}.g2,.g3{grid-template-columns:1fr}.nav-links li:nth-child(n+4){display:none}}
+@media(max-width:600px){.wrap{padding:0 1rem}.nav-links{display:none}}
+
+.grade-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:1.25rem 0}
+.grade-item{background:var(--bg-card);padding:.9rem 1.1rem;display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start}
+.gr-rank{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold-dim);letter-spacing:.1em;white-space:nowrap;padding-top:.1rem}
+.gr-name{font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-primary);margin-bottom:.25rem}
+.gr-desc{font-size:.78rem;color:var(--text-secondary);line-height:1.5}
+.deg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.25rem 0}
+.deg-card{border:1px solid var(--border);padding:1.4rem;position:relative;overflow:hidden}
+.deg-card::before{content:attr(data-d);position:absolute;top:-.5rem;right:.5rem;font-family:'Cinzel',serif;font-size:3rem;font-weight:900;color:rgba(196,74,58,.07);pointer-events:none}
+.deg-name{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-bright);margin-bottom:.65rem}
+.deg-desc{font-size:.83rem;color:var(--text-secondary);line-height:1.6}
+.fh{display:grid;grid-template-columns:72px 1fr;gap:1.75rem;align-items:start;padding:1.75rem;border:1px solid var(--border);margin-bottom:1.25rem;background:var(--bg-card)}
+.fh-sigil{width:72px;height:72px;border:1px solid var(--border-bright);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.fh-name{font-family:'Cinzel',serif;font-size:1.25rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem}
+.fh-tag{font-style:italic;color:var(--text-secondary);font-size:.92rem;margin-bottom:.6rem}
+.ftags{display:flex;gap:.5rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="index.html" class="nav-logo">Caladan</a><ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="vornacht.html">Le Vornacht</a></li><li><a href="monde.html">Le Monde</a></li><li><a href="factions.html">Factions</a></li><li><a href="personnages.html">Personnages</a></li><li><a href="regles.html">Règles RP</a></li></ul></div></nav>
+<div class="wrap">
+
+<div class="page-header f1"><p class="ph-eye">03 // Forces en présence</p><h1 class="ph-title"><em>Factions</em></h1><p class="ph-lead">Les forces qui structurent Caladan. Chacune a ses objectifs, ses méthodes, ses codes internes. Toutes sont jouables.</p></div>
+
+<div class="sh mb3"><p class="sh-eye">Bras visible du Vornacht</p><h2 class="sh-title">La Main Droite</h2></div>
+<div class="fh"><div class="fh-sigil" style="color:var(--gold-bright);border-color:var(--gold-dim);">⚔</div><div><h3 class="fh-name" style="color:var(--gold-bright);">Main Droite</h3><p class="fh-tag">La loi, la discipline, la présence constante du dogme dans toutes les villes de Caladan.</p><div class="ftags"><span class="badge bg">Officielle</span><span class="badge bc">Jouable</span></div></div></div>
+<div class="prose mb2"><p>La Main Droite veille à l'ordre visible. Ses agents patrouillent dans des armures blanches aux reflets argentés, visières opaques. Elle recrute dans les académies militaires ecclésiastiques et répond directement au Dicastère de l'Ordre. Son commandant suprême est <strong>Simandla Dlamini</strong>, le Bras Armé de l'Éternel.</p></div>
+<div class="grade-grid mb5">
+<div class="grade-item"><span class="gr-rank">G-01</span><div><p class="gr-name">Recrue</p><p class="gr-desc">En formation, sans affectation opérationnelle.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-02</span><div><p class="gr-name">Soldat</p><p class="gr-desc">Patrouille, maintien de l'ordre, application de la loi divine.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-03</span><div><p class="gr-name">Caporal</p><p class="gr-desc">Chef d'une escouade de quatre soldats.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-04</span><div><p class="gr-name">Sergent</p><p class="gr-desc">Chef de section. Premier grade de sous-officier avec autorité réelle sur le terrain.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-05</span><div><p class="gr-name">Sergent-Major</p><p class="gr-desc">Lien entre soldats et officiers. Les plus expérimentés des rangs subalternes.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-06</span><div><p class="gr-name">Lieutenant</p><p class="gr-desc">Premier grade officier. Section renforcée, début de l'autonomie tactique.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-07</span><div><p class="gr-name">Capitaine</p><p class="gr-desc">Compagnie de 100 à 200 hommes. Autonomie tactique réelle.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-08</span><div><p class="gr-name">Commandant</p><p class="gr-desc">Bataillon. Accès aux informations stratégiques du secteur.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-09</span><div><p class="gr-name">Lieutenant-Colonel</p><p class="gr-desc">Régiment. Interface entre le terrain et le commandement supérieur.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-10</span><div><p class="gr-name">Colonel</p><p class="gr-desc">Brigade. Répond directement aux généraux.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-11</span><div><p class="gr-name">Général de Brigade</p><p class="gr-desc">Plusieurs brigades sur un théâtre d'opérations défini.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-12</span><div><p class="gr-name">Général de Division</p><p class="gr-desc">Forces d'une nation entière. Répond au cardinal local.</p></div></div>
+<div class="grade-item"><span class="gr-rank">G-13</span><div><p class="gr-name">Général d'Armée</p><p class="gr-desc">Commandement suprême des forces régulières. Répond au Dicastère de l'Ordre.</p></div></div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Bras invisible du Vornacht</p><h2 class="sh-title">La Main Gauche</h2></div>
+<div class="fh"><div class="fh-sigil" style="color:var(--cold-bright);border-color:var(--cold-dim);">◈</div><div><h3 class="fh-name" style="color:var(--cold-bright);">Main Gauche</h3><p class="fh-tag">Elle apparaît dans les heures mortes. Elle repart avant l'aube. Elle n'a jamais existé officiellement.</p><div class="ftags"><span class="badge bc">Clandestine</span><span class="badge bc">Jouable</span></div></div></div>
+<div class="prose mb2"><p>Assassins. Traqueurs. Commandos paramilitaires. Les péchés nécessaires du Vornacht. Son commandant suprême — <strong>l'Ombre Principale</strong> — répond uniquement à Sa Sainteté. Son identité est inconnue de la quasi-totalité du Vornacht. Actuellement : <strong>Sorath Zorhel</strong>.</p></div>
+<div class="grade-grid mb4">
+<div class="grade-item"><span class="gr-rank">MG-01</span><div><p class="gr-name">Ombre</p><p class="gr-desc">Agent en formation. Deux à cinq ans selon les spécialités.</p></div></div>
+<div class="grade-item"><span class="gr-rank">MG-02</span><div><p class="gr-name">Lame</p><p class="gr-desc">Agent opérationnel de base. Assassinats, infiltrations, disparitions ciblées.</p></div></div>
+<div class="grade-item"><span class="gr-rank">MG-03</span><div><p class="gr-name">Spectre</p><p class="gr-desc">Agent senior. Opérations complexes, longue durée, infiltration profonde.</p></div></div>
+<div class="grade-item"><span class="gr-rank">MG-04</span><div><p class="gr-name">Fantôme</p><p class="gr-desc">Agent d'élite. Missions que la Main Droite est incapable d'accomplir.</p></div></div>
+<div class="grade-item"><span class="gr-rank">MG-05</span><div><p class="gr-name">Voile</p><p class="gr-desc">Commandant d'une cellule de cinq à dix agents.</p></div></div>
+<div class="grade-item"><span class="gr-rank">MG-06</span><div><p class="gr-name">Silence</p><p class="gr-desc">Commandant régional. Supervise toutes les cellules d'un territoire.</p></div></div>
+<div class="grade-item"><span class="gr-rank">MG-∞</span><div><p class="gr-name">Ombre Principale</p><p class="gr-desc">Commandant suprême. Répond uniquement à Sa Sainteté. Identité connue de Sa Sainteté seule.</p></div></div>
+</div>
+<div class="alert mb5"><span class="alert-icon">[ SCRUTEURS ]</span><p class="alert-body">Techniciens-soldats spécialisés dans la détection des Yeux de Dieu piratés ou silenciés. Opèrent en civil, seuls ou en binôme. Leur critère d'action : un silence là où un signal devrait exister.</p></div>
+
+<div class="sh mb3"><p class="sh-eye">Puissances vassales</p><h2 class="sh-title">Les Grandes Maisons</h2></div>
+<div class="prose mb3"><p>Des blocs politico-industriels, militaires et financiers. Officiellement sous l'autorité ecclésiastique. Avec une capacité réelle de négociation face aux cardinaux eux-mêmes. Le Vornacht les tolère parce qu'elles lui sont indispensables. Elles acceptent le Vornacht parce qu'il les légitimise.</p></div>
+<div class="g2 mb5">
+<div class="card"><p class="card-meta">Structure interne</p><h3 class="card-title">Seigneur / Seigneure</h3><p>Centre dynastique et décisionnel. Autorité absolue sur les affaires de la Maison.</p></div>
+<div class="card"><p class="card-meta">Structure interne</p><h3 class="card-title">Maître des Armées</h3><p>Commandement des forces militaires privées, milices, chasseurs de primes sous contrat.</p></div>
+<div class="card"><p class="card-meta">Structure interne</p><h3 class="card-title">Maître des Deniers</h3><p>Finances, industries, contrats et flux économiques de la Maison.</p></div>
+<div class="card"><p class="card-meta">Structure interne</p><h3 class="card-title">Maître des Secrets</h3><p>Renseignement, contre-espionnage, opérations clandestines déniables.</p></div>
+<div class="card"><p class="card-meta">Structure interne</p><h3 class="card-title">Maître des Lois</h3><p>Interface avec la justice du Vornacht. Défend les intérêts de la Maison devant tous les tribunaux.</p></div>
+<div class="card"><p class="card-meta">Structure interne</p><h3 class="card-title">Chevaliers &amp; Vassaux</h3><p>Bras militaire rapproché et maillage féodal. Les serments passent par les implants neuraux.</p></div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Indépendants</p><h2 class="sh-title">Mercenaires, Chasseurs &amp; Francs-Coureurs</h2></div>
+<div class="g3 mb5">
+<div class="card"><p class="card-meta">Sans allégeance</p><h3 class="card-title">Mercenaires</h3><p>Soldats professionnels organisés en compagnies de dix à deux cents hommes. Vendent leurs compétences. Le contrat est sacré — la trahison du client est le seul péché impardonnable de leur milieu.</p></div>
+<div class="card"><p class="card-meta">Sous mandat</p><h3 class="card-title">Chasseurs de Primes</h3><p>Opèrent sous mandat ecclésiastique ou privé. Traquent hérétiques, Pestiférés, fugitifs. Immunité légale partielle. Beaucoup sont d'anciens agents de la Main Droite reconvertis.</p></div>
+<div class="card"><p class="card-meta">Hors structure</p><h3 class="card-title">Francs-Coureurs</h3><p>Pour les missions que personne d'autre ne peut accepter officiellement. Extraction, livraison interdite, neutralisation discrète. Leur réputation est leur seul capital. Leur réseau, leur seule protection.</p></div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Anomalie biologique et théologique</p><h2 class="sh-title">La Peste</h2></div>
+<div class="fh"><div class="fh-sigil" style="color:var(--red-bright);border-color:var(--red);">⬡</div><div><h3 class="fh-name" style="color:var(--red-bright);">Les Pestiférés</h3><p class="fh-tag">Ils portent une vérité que le monde entier veut éteindre.</p><div class="ftags"><span class="badge br">Traqués</span><span class="badge br">Mutation spontanée</span><span class="badge bc">Jouable</span></div></div></div>
+<div class="prose mb2"><p>Mutation génétique spontanée sans logique héréditaire identifiable. Un enfant de Pestiféré peut naître sans mutation. Un enfant de citoyens ordinaires peut naître Pestiféré. Le Vornacht dispose de trois interprétations doctrinales officielles en concurrence permanente, aucune définitivement adoptée.</p></div>
+<div class="deg-grid mb5">
+<div class="deg-card" data-d="I"><h3 class="deg-name">Degré I — Éveil Mineur</h3><p class="deg-desc">Réflexes 2-3× la norme, force augmentée d'un tiers, résistance légère, perception affinée. Passe souvent inaperçu des années. Récupérable selon la doctrine.</p></div>
+<div class="deg-card" data-d="II"><h3 class="deg-name">Degré II — Éveil Intermédiaire</h3><p class="deg-desc">Réflexes 5-10× la norme, régénération accélérée, survie à des blessures mortelles. Premières capacités non-physiques : perception extrasensorielle, influence émotionnelle, interférence électronique.</p></div>
+<div class="deg-card" data-d="III"><h3 class="deg-name">Degré III — Éveil Majeur</h3><p class="deg-desc">Menace militaire réelle. Un individu neutralise une escouade entière. Télépathie, télékinésie, manipulation EM, régénération extrême. Priorité absolue de traque pour le Vornacht.</p></div>
+<div class="deg-card" data-d="IV"><h3 class="deg-name">Degré IV — L'Anomalie</h3><p class="deg-desc">Officiellement théorique. Nom de code dans les archives classifiées : <em>l'Anomalie</em>. Manipulation de matière, perception du futur immédiat, influence mentale à grande échelle. Le Vornacht nie officiellement son existence.</p></div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Résistance intellectuelle</p><h2 class="sh-title">Les Voix Interdites</h2></div>
+<div class="prose mb5"><p>Dans les bibliothèques numériques interdites, dans les universités souterraines, dans les réseaux cryptés que les Scruteurs cherchent sans toujours trouver — des hommes et des femmes lisent ce que le Vornacht a effacé. Leurs armes sont des manifestes, des archives libérées, des virus informatiques. Ils constituent quelque chose de plus difficile à combattre qu'une armée : une idée qui se répand. Chaque arrestation génère dix copies. Chaque exécution publique crée des martyrs.</p></div>
+
+</div>
+<footer class="footer"><p class="footer-t">Caladan — Wiki RP 18+ — Écriture collaborative — 2497 — Ère de la Rédemption</p></footer>
+<script>document.addEventListener('DOMContentLoaded',()=>{const p=window.location.pathname.split('/').pop()||'index.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p)a.classList.add('active')});document.querySelectorAll('.acc-t').forEach(t=>{t.addEventListener('click',()=>{const b=t.nextElementSibling,o=t.classList.contains('open');document.querySelectorAll('.acc-t').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open')});if(!o){t.classList.add('open');b.classList.add('open')}})})});</script>
+</body></html>
