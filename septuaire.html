@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le Septuaire — Caladan Wiki</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+:root{--bg-deep:#05050d;--bg-base:#09091a;--bg-surface:#0d0d24;--bg-card:#0f0f2a;--bg-card-hover:#141438;--border:#1e1e4a;--border-bright:#2a2a6a;--gold:#c4962a;--gold-bright:#e8b84b;--gold-dim:#7a5c1a;--cold:#3a7fd4;--cold-bright:#5a9ff4;--cold-dim:#1a3a6a;--text-primary:#e8dfc8;--text-secondary:#9a8f78;--text-dim:#5a5248;--red:#c44a3a;--red-bright:#e46a5a;--scan:rgba(255,255,255,0.012)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg-deep);color:var(--text-primary);font-family:'Crimson Text',Georgia,serif;font-size:1.05rem;line-height:1.7;min-height:100vh;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scan) 2px,var(--scan) 4px);pointer-events:none;z-index:1000}
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;background:linear-gradient(180deg,rgba(5,5,13,.98),rgba(5,5,13,.88));border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-inner{max-width:1350px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-bright);text-decoration:none;letter-spacing:.18em;text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:.45rem 1rem;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,background .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-bright);background:rgba(196,150,42,.06)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold)}
+.wrap{max-width:1350px;margin:0 auto;padding:0 2rem;padding-top:60px}
+.page-header{padding:3.5rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;position:relative}
+.page-header::before{content:'';position:absolute;bottom:-1px;left:0;width:180px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.ph-eye{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.3em;color:var(--cold);text-transform:uppercase;margin-bottom:.6rem}
+.ph-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.ph-title em{color:var(--gold-bright);font-style:normal}
+.ph-lead{font-size:1.1rem;font-style:italic;color:var(--text-secondary);max-width:680px}
+.sh{margin-bottom:1.75rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);position:relative}
+.sh::after{content:'';position:absolute;bottom:-1px;left:0;width:70px;height:1px;background:var(--gold)}
+.sh-eye{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--cold-bright);text-transform:uppercase;margin-bottom:.3rem;opacity:.75}
+.sh-title{font-family:'Cinzel',serif;font-size:1.25rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.card{background:var(--bg-card);border:1px solid var(--border);padding:1.5rem;position:relative;transition:all .2s}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold-dim);transition:background .2s}
+.card:hover{border-color:var(--border-bright);background:var(--bg-card-hover);transform:translateY(-2px)}
+.card:hover::before{background:var(--gold)}
+.card-meta{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-bottom:.4rem;opacity:.8}
+.card-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:.6rem}
+.card p{color:var(--text-secondary);font-size:.9rem;line-height:1.6}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.data-table{width:100%;border-collapse:collapse;font-size:.88rem;margin:1.25rem 0}
+.data-table th{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--border-bright);background:rgba(196,150,42,.04)}
+.data-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top}
+.data-table tr:hover td{background:rgba(196,150,42,.03);color:var(--text-primary)}
+.data-table td:first-child{color:var(--text-primary);font-weight:600}
+.lore-q{background:var(--bg-surface);border-left:3px solid var(--gold);padding:1.4rem 1.75rem;margin:2rem 0;font-style:italic;color:var(--text-secondary);position:relative;font-size:1.02rem;line-height:1.75}
+.lore-q::before{content:'"';position:absolute;top:-.5rem;left:1.4rem;font-family:'Cinzel',serif;font-size:3.5rem;color:var(--gold-dim);line-height:1;pointer-events:none}
+.badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.18rem .55rem;border:1px solid currentColor}
+.bg{color:var(--gold);border-color:var(--gold-dim);background:rgba(196,150,42,.07)}
+.bc{color:var(--cold-bright);border-color:var(--cold-dim);background:rgba(58,127,212,.07)}
+.br{color:var(--red-bright);border-color:var(--red);background:rgba(196,74,58,.07)}
+.bd{color:var(--text-dim);border-color:var(--text-dim);background:transparent}
+.alert{padding:.9rem 1.4rem;border:1px solid var(--border);margin:1.25rem 0;display:flex;gap:.9rem;align-items:flex-start}
+.alert-icon{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gold);white-space:nowrap;padding-top:.12rem}
+.alert-body{font-size:.88rem;color:var(--text-secondary)}
+.acc{border:1px solid var(--border);margin-bottom:.4rem}
+.acc-t{width:100%;padding:.9rem 1.4rem;background:var(--bg-card);border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-primary);transition:background .2s,color .2s;text-align:left}
+.acc-t:hover{background:var(--bg-card-hover);color:var(--gold-bright)}
+.acc-t.open{color:var(--gold-bright);border-bottom:1px solid var(--border)}
+.acc-icon{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--gold-dim);transition:transform .2s}
+.acc-t.open .acc-icon{transform:rotate(45deg)}
+.acc-b{display:none;padding:1.4rem;background:var(--bg-base);font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+.acc-b.open{display:block}
+.prose{max-width:760px}
+.prose h2{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright);margin:2.25rem 0 .9rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
+.prose h3{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--text-primary);margin:1.6rem 0 .65rem}
+.prose p{margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose p strong{color:var(--text-primary);font-weight:600}
+.prose ul,.prose ol{padding-left:1.4rem;margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose li{margin-bottom:.35rem}
+.prose li::marker{color:var(--gold-dim)}
+.ls-2sided{display:grid;grid-template-columns:1fr 270px;gap:2.5rem;align-items:start}
+.sidebar{position:sticky;top:76px}
+.snav{background:var(--bg-card);border:1px solid var(--border);padding:1.4rem}
+.snav-t{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.snav ul{list-style:none}
+.snav li{border-bottom:1px solid var(--border)}
+.snav a{display:block;padding:.55rem .45rem;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,padding-left .2s}
+.snav a:hover{color:var(--gold-bright);padding-left:.7rem}
+.footer{margin-top:4.5rem;padding:1.75rem 2rem;border-top:1px solid var(--border);text-align:center}
+.footer-t{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase}
+.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}.mb3{margin-bottom:1.5rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:3rem}.mt3{margin-top:1.5rem}.mt4{margin-top:2rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.f1{animation:fadeUp .55s .08s ease both}.f2{animation:fadeUp .55s .2s ease both}.f3{animation:fadeUp .55s .32s ease both}.f4{animation:fadeUp .55s .44s ease both}
+@media(max-width:900px){.ls-2sided{grid-template-columns:1fr}.sidebar{position:static}.g2,.g3{grid-template-columns:1fr}.nav-links li:nth-child(n+4){display:none}}
+@media(max-width:600px){.wrap{padding:0 1rem}.nav-links{display:none}}
+
+.cont-hero{padding:3rem 0 2rem;position:relative;border-bottom:1px solid var(--border);margin-bottom:3rem}
+.cont-hero::after{content:'';position:absolute;bottom:-1px;left:0;width:300px;height:1px}
+.cont-hero.sep::after{background:linear-gradient(90deg,var(--gold),transparent)}
+.cont-hero.forge::after{background:linear-gradient(90deg,var(--red),transparent)}
+.cont-hero.marches::after{background:linear-gradient(90deg,var(--cold),transparent)}
+.cont-tag{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.75rem}
+.cont-tag.sep{color:var(--gold)}.cont-tag.forge{color:var(--red-bright)}.cont-tag.marches{color:var(--cold-bright)}
+.cont-name{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem}
+.cont-name.sep{color:var(--gold-bright)}.cont-name.forge{color:var(--red-bright)}.cont-name.marches{color:var(--cold-bright)}
+.cont-lead{font-size:1.1rem;font-style:italic;color:var(--text-secondary);max-width:720px;line-height:1.7}
+.pillar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin:1.5rem 0}
+.pillar{background:var(--bg-card);border:1px solid var(--border);padding:1.75rem;position:relative;transition:all .2s}
+.pillar::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.pillar.sep::before{background:var(--gold-dim)}.pillar.forge::before{background:var(--red)}.pillar.marches::before{background:var(--cold-dim)}
+.pillar:hover{border-color:var(--border-bright);background:var(--bg-card-hover);transform:translateY(-2px)}
+.pillar-name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem}
+.pillar-name.sep{color:var(--gold-bright)}.pillar-name.forge{color:var(--red-bright)}.pillar-name.marches{color:var(--cold-bright)}
+.pillar-cap{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.18em;color:var(--cold);text-transform:uppercase;margin-bottom:.4rem}
+.pillar-maison{font-size:.8rem;color:var(--gold);font-weight:600;margin-bottom:.15rem}
+.pillar-devise{font-size:.75rem;color:var(--gold-dim);font-style:italic;margin-bottom:.5rem}
+.pillar-spec{font-size:.82rem;color:var(--text-secondary);margin-bottom:.6rem;font-style:italic}
+.pillar-body{font-size:.83rem;color:var(--text-secondary);line-height:1.6}
+.pillar-fracture{margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border);font-size:.78rem;color:var(--text-dim);line-height:1.5}
+.function-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:1.5rem 0}
+.func-item{background:var(--bg-card);padding:1.1rem 1.25rem}
+.func-label{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+.func-label.sep{color:var(--gold-bright)}.func-label.forge{color:var(--red-bright)}.func-label.marches{color:var(--cold-bright)}
+.func-desc{font-size:.78rem;color:var(--text-secondary);line-height:1.5}
+.fracture-block{background:var(--bg-surface);border-left:3px solid var(--border-bright);padding:1.5rem 1.75rem;margin:2rem 0}
+.fracture-block.sep{border-left-color:var(--gold)}.fracture-block.forge{border-left-color:var(--red)}.fracture-block.marches{border-left-color:var(--cold)}
+.fracture-title{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+.fracture-title.sep{color:var(--gold-bright)}.fracture-title.forge{color:var(--red-bright)}.fracture-title.marches{color:var(--cold-bright)}
+.fracture-block p{font-size:.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:.75rem}
+.fracture-block p:last-child{margin-bottom:0}
+.cont-nav{display:flex;gap:1rem;margin-bottom:3rem;flex-wrap:wrap}
+.cont-nav a{font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1.1rem;border:1px solid var(--border);text-decoration:none;color:var(--text-secondary);transition:all .2s}
+.cont-nav a:hover{border-color:var(--gold-dim);color:var(--gold-bright);background:rgba(196,150,42,.05)}
+.synth-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:1.5rem 0}
+.synth-table th{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--border-bright);background:rgba(196,150,42,.04);color:var(--gold)}
+.synth-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top;font-size:.82rem}
+.synth-table td:first-child{color:var(--text-primary);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
+.synth-table td em{color:var(--gold-dim);font-style:italic}
+.synth-table tr:hover td{background:rgba(196,150,42,.02)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="index.html" class="nav-logo">Caladan</a><ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="vornacht.html">Le Vornacht</a></li><li><a href="monde.html">Le Monde</a></li><li><a href="septuaire.html">Septuaire</a></li><li><a href="forge-monde.html">Forge-Monde</a></li><li><a href="marches.html">Marches</a></li><li><a href="factions.html">Factions</a></li><li><a href="personnages.html">Personnages</a></li><li><a href="regles.html">Règles RP</a></li></ul></div></nav>
+<div class="wrap">
+
+<div class="cont-hero sep">
+<p class="cont-tag sep">Continent I — Pôle Sacré</p>
+<h1 class="cont-name sep">Le Septuaire</h1>
+<p class="cont-lead">Le Septuaire ne gouverne pas le monde par la seule force matérielle. Il gouverne en définissant ce qui peut être reconnu comme authentique, licite, recevable, sain, orthodoxe ou formateur. C'est le continent qui fabrique la légitimité elle-même.</p>
+</div>
+
+<div class="cont-nav">
+<a href="monde.html">← Le Monde</a>
+<a href="forge-monde.html">La Forge-Monde →</a>
+<a href="marches.html">Les Marches de Brume →</a>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Logique d'ensemble</p><h2 class="sh-title">Quatre Fonctions</h2></div>
+<div class="function-grid mb5">
+<div class="func-item"><p class="func-label sep">Politique</p><p class="func-desc">Fabriquer l'ordre sous une forme sacrée, juridique et administrative. Donner à l'obéissance la forme de la vérité.</p></div>
+<div class="func-item"><p class="func-label sep">Économique</p><p class="func-desc">Monétiser la validation, l'accès, la certification, l'arbitrage et les services de haute légitimité.</p></div>
+<div class="func-item"><p class="func-label sep">Symbolique</p><p class="func-desc">Incarner la réponse civilisationnelle à la Chute : archive, pureté, règle, hauteur, soin, silence, sélection.</p></div>
+<div class="func-item"><p class="func-label sep">Géopolitique</p><p class="func-desc">Tenir le centre du Vornacht sans pouvoir s'abstraire des autres continents — qu'il encadre tout en en dépendant matériellement.</p></div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Géographie</p><h2 class="sh-title">Un Continent de Hauts Plateaux</h2></div>
+<div class="prose mb4">
+<p>Le Septuaire s'étend sur un empilement de hauts plateaux calcaires, de chaînes montagneuses sanctifiées et de bassins urbains reliés par des viaducs gravifiques. Les vents froids y transportent une poussière blanche chargée de particules issues des anciennes guerres de données — le Vornacht a transformé cette stérilité relative en avantage politique en y concentrant archives, académies, tribunaux et cliniques de sauvegarde.</p>
+<p>Le pouvoir y est plus ecclésiastique qu'ailleurs. Les cardinaux y disposent d'une marge réelle face aux Grandes Maisons, mais cette primauté repose sur une alliance technique : les Maisons sacrées certifient les implants, encadrent la mémoire, produisent les instruments juridiques et financent une partie de la liturgie d'État.</p>
+<p>La société y est plus hiératique, plus lettrée et plus visible. Les processions y ont valeur d'ordonnancement urbain. Les classes scribales, les officiants-techniciens et les étudiants des académies y forment une strate intermédiaire puissante entre le clergé et la masse des travailleurs.</p>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Tableau continental</p><h2 class="sh-title">Synthèse des Sept Pays</h2></div>
+<table class="synth-table mb5">
+<thead><tr><th>Pays</th><th>Capitale</th><th>Maison</th><th>Devise</th><th>Spécialité</th><th>Fracture</th></tr></thead>
+<tbody>
+<tr><td>Hieron Primus</td><td>Aetheryn</td><td>Casa Vela</td><td><em>Ce qui est gardé gouverne</em></td><td>Archive et validation documentaire</td><td>Accès aux archives pré-Chute</td></tr>
+<tr><td>Sanctum Vela</td><td>Luminara</td><td>Calidyr</td><td><em>Le pur autorise le possible</em></td><td>Corps légitime, implants, pureté technique</td><td>Amélioration du corps hors bénédiction</td></tr>
+<tr><td>Novacler</td><td>Serenost</td><td>Eshmar</td><td><em>Nul pouvoir hors du précédent</em></td><td>Droit, précédents, audit doctrinal</td><td>Calcul total de la loi ou part irréductible du sacré</td></tr>
+<tr><td>Seraphon</td><td>Orison</td><td>Merek</td><td><em>Ce qui tient s'élève</em></td><td>Ascension, verticalité, transit orbital</td><td>Monopole de la hauteur contre ascensions clandestines</td></tr>
+<tr><td>Aurelion</td><td>Paxus</td><td>Rhyse</td><td><em>Guérir, c'est lier</em></td><td>Soin, réparation, conservation mémorielle</td><td>Ouverture des meilleurs soins aux masses</td></tr>
+<tr><td>Vestalum</td><td>Valoris</td><td>Tervin</td><td><em>Le silence scelle la paix</em></td><td>Effacement, scellés, cryptes</td><td>Retour possible des vérités purgées</td></tr>
+<tr><td>Altaris</td><td>Celestis</td><td>Varn</td><td><em>Former, c'est régner demain</em></td><td>Formation et reproduction des élites</td><td>Qui écrit la hiérarchie future du monde</td></tr>
+</tbody>
+</table>
+
+<div class="sh mb3"><p class="sh-eye">Les huit piliers</p><h2 class="sh-title">Fiches des Pays</h2></div>
+<div class="pillar-grid mb3">
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Aetheryn</p>
+<h3 class="pillar-name sep">Hieron Primus</h3>
+<p class="pillar-maison">Casa Vela</p>
+<p class="pillar-devise">« Ce qui est gardé gouverne »</p>
+<p class="pillar-spec">Blason : une clé d'or et un œil fermé</p>
+<p class="pillar-body">Pays des sanctuaires mémoriels et des vérités documentaires. Aetheryn concentre les cryptes de grains, les salles de validation et les couches profondes d'archives fossiles. Casa Vela tient le monopole de ce qui est tenu pour authentique, falsifié, hérétique ou admissible dans le monde entier. Son pouvoir réel tient dans sa capacité à faire exister ou disparaître une preuve. La Maison recrute parmi les lignées de scribes et tient ses vassaux parmi les gardes des cryptes, les juristes mémétiques et les restaurateurs de support.<br><br>Villes secondaires : <strong>Mnéria</strong> — ateliers de restauration neurale et écoles de méméticiens. <strong>Port-Patène</strong> — plateforme logistique pour reliques de données, pèlerins et matériel liturgique lourd.</p>
+<p class="pillar-fracture">Les conflits majeurs portent sur l'accès aux archives pré-Chute, la propriété des grains historiques et les rumeurs d'une chambre interdite où seraient conservées des versions non corrigées de la Nuit de la Chute.</p>
+</div>
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Luminara</p>
+<h3 class="pillar-name sep">Sanctum Vela</h3>
+<p class="pillar-maison">Maison Calidyr</p>
+<p class="pillar-devise">« Le pur autorise le possible »</p>
+<p class="pillar-spec">Blason : une main blanche traversée d'un circuit rouge</p>
+<p class="pillar-body">Déserts salins et terrasses minérales blanches dont les couches riches en composés rares alimentent la chimie sacrée. Luminara ressemble de loin à une couronne de sel traversée de veines lumineuses — ses niveaux centraux sont des chaînes d'essai où l'on bénit, calibre et scelle les implants. House Calidyr a fait de la pureté certifiée sa marque de pouvoir. Elle possède des ordres d'inspecteurs itinérants capables de fermer un atelier, un hôpital ou un port entier au nom d'une non-conformité technique.<br><br>Villes secondaires : <strong>Puris</strong> — production des filtres neuraux pour les forces de sécurité. <strong>Vespera</strong> — cité d'essai où les prototypes civiques sont évalués sur des populations sous contrat.</p>
+<p class="pillar-fracture">Des réseaux de reconditionnement récupèrent des implants refusés pour les revendre aux Marches. L'opposition réclame le droit d'améliorer un corps sans bénédiction préalable — une revendication que Calidyr refuse systématiquement.</p>
+</div>
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Serenost</p>
+<h3 class="pillar-name sep">Novacler</h3>
+<p class="pillar-maison">Maison Eshmar</p>
+<p class="pillar-devise">« Nul pouvoir hors du précédent »</p>
+<p class="pillar-spec">Blason : une lame posée sur un codex</p>
+<p class="pillar-body">Vallées fermées, lacs noirs et plateaux en terrasses où chaque centre urbain a été construit autour d'un tribunal-citadelle. Serenost est une ville concentrique organisée autour du Grand Tribunal — ses anneaux intérieurs accueillent les salles d'audience, les banques de preuves et les archives de sentence. House Eshmar fabrique les architectures juridiques qui rendent l'obéissance calculable. Les seigneurs locaux, les bannerets et même les maisons étrangères y achètent des arbitrages, des précédents ou des interprétations prédictives avant une guerre commerciale.<br><br>Villes secondaires : <strong>Lexor</strong> — cité des arbitres privés et des rédacteurs de pactes entre Maisons. <strong>Cautel</strong> — spécialisée dans les litiges commerciaux transcontinentaux.</p>
+<p class="pillar-fracture">Les légalistes absolus veulent que toute décision devienne calculable. Les juristes théologiques veulent préserver une part irréductible d'autorité sacrée et d'interprétation humaine. Aucun camp n'a encore emporté le débat.</p>
+</div>
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Orison</p>
+<h3 class="pillar-name sep">Seraphon</h3>
+<p class="pillar-maison">Maison Merek</p>
+<p class="pillar-devise">« Ce qui tient s'élève »</p>
+<p class="pillar-spec">Blason : une tour traversée d'un halo</p>
+<p class="pillar-body">Plateaux étroits ouverts sur le vide, dominés par des pics rocheux auxquels sont amarrées des infrastructures ascensionnelles. Là où d'autres pays construisent horizontalement, Seraphon construit vers le haut — ponts gravifiques, monastères suspendus, plates-formes orbitales et sanctuaires amarrés à la stratosphère. House Merek tient les faisceaux d'ascenseurs orbitaux comme un chantier sacré permanent, indispensable aux flux vers l'orbite et aux grandes infrastructures du monde.<br><br>Villes secondaires : <strong>Tensura</strong> — centre de maintenance des câbles orbitaux et formation des ingénieurs d'élévation. <strong>Vaultis</strong> — port d'embarquement pour les pèlerinages orbitaux autorisés.</p>
+<p class="pillar-fracture">Des mouvements clandestins soutiennent que l'accès à l'orbite ne devrait plus être réservé aux élites. Dans les Profondeurs d'Orison circulent des plans pour des ascensions non autorisées.</p>
+</div>
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Paxus</p>
+<h3 class="pillar-name sep">Aurelion</h3>
+<p class="pillar-maison">Maison Rhyse</p>
+<p class="pillar-devise">« Guérir, c'est lier »</p>
+<p class="pillar-spec">Blason : une feuille stylisée posée sur une capsule de mémoire</p>
+<p class="pillar-body">Vallées fertiles artificialisées, bassins thermaux et chaînes de soin hautement homologuées. Paxus est une capitale de cliniques, de stockage des grains et de régénération des corps fidèles. House Rhyse y règne à la fois comme dynastie thérapeutique et comme banque du souvenir. Sa force tient dans sa capacité à soigner — ce qui lui confère une forme de neutralité utilitaire que les autres Maisons doivent respecter sous peine de se priver de ses services.<br><br>Villes secondaires : <strong>Mira Solen</strong> — spécialisée dans les traitements de longévité pour les grandes familles. <strong>Arcen</strong> — centre de conservation des grains des hauts dignitaires curiaux.</p>
+<p class="pillar-fracture">Les techniques de soin restent un privilège des élites conformes. La question sociale de leur ouverture creuse une fracture permanente entre la doctrine officielle et les besoins réels des ceintures ouvrières.</p>
+</div>
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Valoris</p>
+<h3 class="pillar-name sep">Vestalum</h3>
+<p class="pillar-maison">Maison Tervin</p>
+<p class="pillar-devise">« Le silence scelle la paix »</p>
+<p class="pillar-spec">Blason : une bouche cousue derrière une croix angulaire</p>
+<p class="pillar-body">Forêts noires, vallées fermées et centres semi-enterrés. Vestalum est la matière noire de l'ordre. Valoris gouverne cryptes de clés, chambres de preuve, protocoles d'effacement et neutralisation d'archives compromises. House Tervin transforme le silence en instrument de pouvoir. Sa puissance nourrit un soupçon structurel : si l'effacement n'est jamais total, alors Vestalum repose sur un cimetière de vérités en attente de retour.<br><br>Villes secondaires : <strong>Nullis</strong> — centre des protocoles d'effacement en temps réel pour les Dicastères. <strong>Cavernam</strong> — complexe enterré de stockage des archives sensibles classifiées.</p>
+<p class="pillar-fracture">Certains opérateurs affirment que l'effacement n'est jamais total. Des couches fantômes persistent. Qui possède les archives vraiment effacées possède plus que leur contenu — il possède le droit de les nier.</p>
+</div>
+
+<div class="pillar sep">
+<p class="pillar-cap">Capitale : Celestis</p>
+<h3 class="pillar-name sep">Altaris</h3>
+<p class="pillar-maison">Maison Varn</p>
+<p class="pillar-devise">« Former, c'est régner demain »</p>
+<p class="pillar-spec">Blason : une couronne ouverte au-dessus d'un livre fermé</p>
+<p class="pillar-body">Plaines organisées pour enseigner, filtrer et classer. Celestis rassemble campus fortifiés, concours, internats de lignage et arènes d'évaluation. House Varn domine moins par coercition directe que par le contrôle des circuits de sélection qui produisent les futurs cadres du Vornacht et des Grandes Maisons. Son réseau d'anciens élèves traverse continents et institutions — une toile de fidélités cultivées sur une génération entière.<br><br>Villes secondaires : <strong>Formax</strong> — académie spécialisée dans la formation des officiers de la Main Droite. <strong>Selectis</strong> — centre de concours entre lignées nobles pour les postes curiaux.</p>
+<p class="pillar-fracture">Des étudiants veulent rouvrir des pans interdits de philosophie politique et d'histoire. Une partie du monde accuse Altaris de décider à l'avance qui aura le droit de gouverner demain — accusation que Varn refuse de traiter comme une critique légitime.</p>
+</div>
+
+</div>
+
+<div class="sh mb3 mt4"><p class="sh-eye">L'Enclave</p><h2 class="sh-title">L'Axium — Calaveum</h2></div>
+<div style="background:linear-gradient(135deg,rgba(196,150,42,.06),rgba(196,150,42,.02));border:1px solid var(--gold-dim);padding:1.75rem;margin-bottom:3rem;position:relative">
+<p style="font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem">Enclave souveraine — Sans Maison dominante — Siège de Sa Sainteté</p>
+<p style="font-size:.92rem;color:var(--text-secondary);line-height:1.7;max-width:720px;margin-bottom:.75rem">Huitième entité du Septuaire mais d'une nature radicalement différente des sept pays sacrés. Enclave souveraine physiquement enchâssée dans le continent, juridiquement extérieure à chacun de ses pays. Sa frontière — la <strong style="color:var(--text-primary)">Ligne des Sept Consentements</strong> — est doctrinale autant que militaire. Violer cette limite vaut déclaration de guerre contre Sa Sainteté.</p>
+<p style="font-size:.92rem;color:var(--text-secondary);line-height:1.7;max-width:720px;margin-bottom:.75rem"><strong style="color:var(--text-primary)">Calaveum</strong> — la capitale mondiale — abrite le Palais pontifical, la basilique centrale, les palais des cinq Dicastères et les chambres de succession. Le <em>Dôme du Trône Retenu</em>, visible depuis toute la ville, symbolise dans l'imaginaire commun que tant que le centre tient, le monde tient.</p>
+<p style="font-size:.92rem;color:var(--text-secondary);line-height:1.7;max-width:720px">L'Axium ne produit pas de biens matériels — il produit la validité elle-même. Licite, recevable, orthodoxe, investi, absous, interdit : ces catégories se décident ici.</p>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Architecture du pouvoir</p><h2 class="sh-title">Cinq Dépendances Structurantes</h2></div>
+<div class="prose mb4">
+<p>Le Septuaire est un système de fonctions réparties. Hieron Primus stabilise la mémoire. Sanctum valide les corps. Novacler formalise la règle. Seraphon tient la hauteur et les passages. Aurelion répare. Vestalum fait taire. Altaris sélectionne. L'Axium tranche et surplombe.</p>
+<p>Cette complémentarité explique à la fois la force du continent et sa vulnérabilité profonde. Si l'un des piliers se dérègle, c'est l'ensemble de la légitimité vornachtienne qui perd sa cohérence. Le Septuaire domine donc moins par abondance de moyens que par articulation de dépendances hautement spécialisées.</p>
+</div>
+
+<div class="fracture-block sep mb5">
+<p class="fracture-title sep">Fracture Continentale Maîtresse</p>
+<p>Le Septuaire prétend organiser le monde au nom de la stabilité, de la pureté et de la vérité. Sa propre cohérence repose sur une tension fondamentale : comment un continent qui prétend fixer la norme peut-il continuer à absorber le droit, la mémoire, le soin, l'élévation, le silence et la sélection sans produire lui-même ses propres hérésies ?</p>
+<p>Les partisans d'un Vornacht strictement doctrinal s'opposent à ceux qui veulent l'adapter aux nécessités industrielles du reste du monde. Les archives pré-Chute, les protocoles d'effacement et la question de savoir qui écrit l'histoire réelle de la Chute sont des lignes de fracture permanentes.</p>
+<p>La réponse à cette tension déterminera si le Septuaire reste le centre du monde — ou s'il devient simplement l'archive de ce que le monde a été.</p>
+</div>
+
+</div>
+<footer class="footer"><p class="footer-t">Caladan — Wiki RP 18+ — Écriture collaborative — 2497 — Ère de la Rédemption</p></footer>
+<script>document.addEventListener('DOMContentLoaded',()=>{const p=window.location.pathname.split('/').pop()||'index.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p)a.classList.add('active')});document.querySelectorAll('.acc-t').forEach(t=>{t.addEventListener('click',()=>{const b=t.nextElementSibling,o=t.classList.contains('open');document.querySelectorAll('.acc-t').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open')});if(!o){t.classList.add('open');b.classList.add('open')}})})});</script>
+</body></html>
