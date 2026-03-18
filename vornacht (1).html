@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le Vornacht — Caladan Wiki</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+:root{--bg-deep:#05050d;--bg-base:#09091a;--bg-surface:#0d0d24;--bg-card:#0f0f2a;--bg-card-hover:#141438;--border:#1e1e4a;--border-bright:#2a2a6a;--gold:#c4962a;--gold-bright:#e8b84b;--gold-dim:#7a5c1a;--cold:#3a7fd4;--cold-bright:#5a9ff4;--cold-dim:#1a3a6a;--text-primary:#e8dfc8;--text-secondary:#9a8f78;--text-dim:#5a5248;--red:#c44a3a;--red-bright:#e46a5a;--scan:rgba(255,255,255,0.012)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg-deep);color:var(--text-primary);font-family:'Crimson Text',Georgia,serif;font-size:1.05rem;line-height:1.7;min-height:100vh;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scan) 2px,var(--scan) 4px);pointer-events:none;z-index:1000}
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;background:linear-gradient(180deg,rgba(5,5,13,.98),rgba(5,5,13,.88));border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-inner{max-width:1350px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-bright);text-decoration:none;letter-spacing:.18em;text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:.45rem 1rem;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,background .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-bright);background:rgba(196,150,42,.06)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold)}
+.wrap{max-width:1350px;margin:0 auto;padding:0 2rem;padding-top:60px}
+.page-header{padding:3.5rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;position:relative}
+.page-header::before{content:'';position:absolute;bottom:-1px;left:0;width:180px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.ph-eye{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.3em;color:var(--cold);text-transform:uppercase;margin-bottom:.6rem}
+.ph-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.ph-title em{color:var(--gold-bright);font-style:normal}
+.ph-lead{font-size:1.1rem;font-style:italic;color:var(--text-secondary);max-width:680px}
+.sh{margin-bottom:1.75rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);position:relative}
+.sh::after{content:'';position:absolute;bottom:-1px;left:0;width:70px;height:1px;background:var(--gold)}
+.sh-eye{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--cold-bright);text-transform:uppercase;margin-bottom:.3rem;opacity:.75}
+.sh-title{font-family:'Cinzel',serif;font-size:1.25rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.card{background:var(--bg-card);border:1px solid var(--border);padding:1.5rem;position:relative;transition:all .2s}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold-dim);transition:background .2s}
+.card:hover{border-color:var(--border-bright);background:var(--bg-card-hover);transform:translateY(-2px)}
+.card:hover::before{background:var(--gold)}
+.card-meta{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-bottom:.4rem;opacity:.8}
+.card-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:.6rem}
+.card p{color:var(--text-secondary);font-size:.9rem;line-height:1.6}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.data-table{width:100%;border-collapse:collapse;font-size:.88rem;margin:1.25rem 0}
+.data-table th{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--border-bright);background:rgba(196,150,42,.04)}
+.data-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top}
+.data-table tr:hover td{background:rgba(196,150,42,.03);color:var(--text-primary)}
+.data-table td:first-child{color:var(--text-primary);font-weight:600}
+.lore-q{background:var(--bg-surface);border-left:3px solid var(--gold);padding:1.4rem 1.75rem;margin:2rem 0;font-style:italic;color:var(--text-secondary);position:relative;font-size:1.02rem;line-height:1.75}
+.lore-q::before{content:'"';position:absolute;top:-.5rem;left:1.4rem;font-family:'Cinzel',serif;font-size:3.5rem;color:var(--gold-dim);line-height:1;pointer-events:none}
+.badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.18rem .55rem;border:1px solid currentColor}
+.bg{color:var(--gold);border-color:var(--gold-dim);background:rgba(196,150,42,.07)}
+.bc{color:var(--cold-bright);border-color:var(--cold-dim);background:rgba(58,127,212,.07)}
+.br{color:var(--red-bright);border-color:var(--red);background:rgba(196,74,58,.07)}
+.bd{color:var(--text-dim);border-color:var(--text-dim);background:transparent}
+.alert{padding:.9rem 1.4rem;border:1px solid var(--border);margin:1.25rem 0;display:flex;gap:.9rem;align-items:flex-start}
+.alert-icon{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gold);white-space:nowrap;padding-top:.12rem}
+.alert-body{font-size:.88rem;color:var(--text-secondary)}
+.acc{border:1px solid var(--border);margin-bottom:.4rem}
+.acc-t{width:100%;padding:.9rem 1.4rem;background:var(--bg-card);border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-primary);transition:background .2s,color .2s;text-align:left}
+.acc-t:hover{background:var(--bg-card-hover);color:var(--gold-bright)}
+.acc-t.open{color:var(--gold-bright);border-bottom:1px solid var(--border)}
+.acc-icon{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--gold-dim);transition:transform .2s}
+.acc-t.open .acc-icon{transform:rotate(45deg)}
+.acc-b{display:none;padding:1.4rem;background:var(--bg-base);font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+.acc-b.open{display:block}
+.prose{max-width:760px}
+.prose h2{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright);margin:2.25rem 0 .9rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
+.prose h3{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--text-primary);margin:1.6rem 0 .65rem}
+.prose p{margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose p strong{color:var(--text-primary);font-weight:600}
+.prose ul,.prose ol{padding-left:1.4rem;margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose li{margin-bottom:.35rem}
+.prose li::marker{color:var(--gold-dim)}
+.ls-2sided{display:grid;grid-template-columns:1fr 270px;gap:2.5rem;align-items:start}
+.sidebar{position:sticky;top:76px}
+.snav{background:var(--bg-card);border:1px solid var(--border);padding:1.4rem}
+.snav-t{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.snav ul{list-style:none}
+.snav li{border-bottom:1px solid var(--border)}
+.snav a{display:block;padding:.55rem .45rem;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,padding-left .2s}
+.snav a:hover{color:var(--gold-bright);padding-left:.7rem}
+.footer{margin-top:4.5rem;padding:1.75rem 2rem;border-top:1px solid var(--border);text-align:center}
+.footer-t{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase}
+.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}.mb3{margin-bottom:1.5rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:3rem}.mt3{margin-top:1.5rem}.mt4{margin-top:2rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.f1{animation:fadeUp .55s .08s ease both}.f2{animation:fadeUp .55s .2s ease both}.f3{animation:fadeUp .55s .32s ease both}.f4{animation:fadeUp .55s .44s ease both}
+@media(max-width:900px){.ls-2sided{grid-template-columns:1fr}.sidebar{position:static}.g2,.g3{grid-template-columns:1fr}.nav-links li:nth-child(n+4){display:none}}
+@media(max-width:600px){.wrap{padding:0 1rem}.nav-links{display:none}}</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="index.html" class="nav-logo">Caladan</a><ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="vornacht.html">Le Vornacht</a></li><li><a href="monde.html">Le Monde</a></li><li><a href="factions.html">Factions</a></li><li><a href="personnages.html">Personnages</a></li><li><a href="regles.html">Règles RP</a></li></ul></div></nav>
+<div class="wrap">
+<div class="page-header f1">
+<p class="ph-eye">01 // Institution — Théocratie</p>
+<h1 class="ph-title">Le <em>Vornacht</em></h1>
+<p class="ph-lead">L'autorité morale, juridique, rituelle et technologique dominante sur Caladan. Il gouverne par le dogme, par l'administration, par la surveillance et par l'usage contrôlé de technologies sanctifiées.</p>
+</div>
+<div class="ls-2sided">
+<div>
+<div class="sh mb3"><p class="sh-eye">Genèse</p><h2 class="sh-title">La Nuit de la Chute</h2></div>
+<div class="prose mb5">
+<p>Il fut un temps où l'humanité crut pouvoir se passer de Dieu. Elle avait des machines qui pensaient à sa place, des laboratoires qui recomposaient la vie cellule par cellule, des réseaux qui traversaient le monde en une fraction de seconde. Elle avait tout. Elle avait trop. Dans cet excès de puissance, elle perdit ce que nulle machine ne pouvait lui rendre — le sens de sa propre limite.</p>
+<p>Les archives qui survivèrent parlent d'une désintégration totale. Les intelligences artificielles se retournèrent contre leurs créateurs. Les guerres de données rendirent les villes aveugles et muettes. Les mégapoles brûlèrent. Les gouvernements s'effondrèrent. Les hommes s'entre-dévorèrent dans les décombres de leur propre orgueil. C'est dans ce silence que Dieu parla.</p>
+<h2>L'Archiviste</h2>
+<p>Son nom véritable est perdu. On l'appelle l'Archiviste. Avant la Chute, il gardait les mémoires du monde. Dans les décombres, il continua. Il fouilla les ruines numériques, récupéra les archives corrompues, reconstitua ce que l'humanité avait vécu, construit, détruit, recommencé. Il lut tout. Il comprit tout.</p>
+<p>L'humanité courait à sa ruine depuis toujours. Chaque effondrement portait la même signature — la liberté sans limite, la connaissance sans cadre. Il rassembla des survivants, leur donna des règles, leur donna un dieu. En moins d'un siècle, ce qu'il avait fondé dans les ruines devint le Vornacht.</p>
+<h2>Le Codex</h2>
+<p><strong>L'humanité est imparfaite par nature.</strong> Livrée à elle-même elle détruit. La liberté totale est un poison lent dont la Nuit de la Chute fut l'expression ultime.</p>
+<p><strong>La connaissance doit être sanctifiée.</strong> La science existe, encadrée, validée par le Vornacht. Toute recherche conduite en dehors est hérétique — elle échappe à l'ordre, elle échappe à Dieu.</p>
+<p><strong>L'ordre est une volonté divine.</strong> Gouverner est un devoir sacré. Sa Sainteté règne parce que Dieu l'exige. La hiérarchie est l'architecture de la volonté divine traduite dans la chair du monde.</p>
+</div>
+<div class="sh mb3"><p class="sh-eye">Structure</p><h2 class="sh-title">Hiérarchie Ecclésiastique</h2></div>
+<table class="data-table mb5">
+<thead><tr><th>Rang</th><th>Titre</th><th>Fonction</th></tr></thead>
+<tbody>
+<tr><td>I</td><td>Sa Sainteté</td><td>Chef suprême. Voix vivante de Dieu. Résidence à Calaveum, enclave de l'Axium.</td></tr>
+<tr><td>II</td><td>Cardinaux</td><td>Gouvernent les nations. Siègent au Conseil Doctrinal. Élisent Sa Sainteté via l'Examen de l'Esprit.</td></tr>
+<tr><td>III</td><td>Curie &amp; Dicastères</td><td>Administration centrale : doctrine, science, ordre, archives, conformité, Maisons.</td></tr>
+<tr><td>IV</td><td>Archevêques</td><td>Supervisent des groupes de diocèses. Relais entre cardinaux et évêques.</td></tr>
+<tr><td>V</td><td>Évêques</td><td>Gouverneurs des villes. Justice ecclésiastique, supervision des curés.</td></tr>
+<tr><td>VI</td><td>Curés</td><td>Présents dans chaque quartier. Célèbrent les rites, surveillent les déviances.</td></tr>
+<tr><td>VII</td><td>Diacres &amp; Frères</td><td>Assistants, ordres religieux, formation, soins, archives.</td></tr>
+</tbody>
+</table>
+<div class="sh mb3"><p class="sh-eye">Sacrements</p><h2 class="sh-title">Les Rites Canoniques</h2></div>
+<div class="mb4">
+<div class="acc"><button class="acc-t">L'Éveil <span class="acc-icon">+</span></button><div class="acc-b">Dans les premières semaines suivant la naissance, l'enfant est présenté à l'église paroissiale. Le prêtre verse l'eau bénite sur son front. Simultanément, un technicien sanctifié implante l'Œil de Dieu à la base du crâne. L'Œil enregistre passivement — il cartographie le cerveau, établit sa signature neurale unique. Sans Œil, un individu n'existe pas aux yeux du Vornacht.</div></div>
+<div class="acc"><button class="acc-t">L'Ancrage <span class="acc-icon">+</span></button><div class="acc-b">À l'adolescence, le jeune croyant revient devant l'église. Le technicien sanctifié active l'Œil — il cesse d'enregistrer passivement et commence à émettre. Dès cet instant, le croyant entre dans le réseau du Vornacht. Ses pensées dominantes, ses états émotionnels, ses doutes deviennent lisibles. On dit aux croyants que c'est la marque de la confiance divine.</div></div>
+<div class="acc"><button class="acc-t">Le Lien <span class="acc-icon">+</span></button><div class="acc-b">Cérémonie publique entre un homme et une femme. Le technicien sanctifié procède à la synchronisation partielle des deux Yeux de Dieu — une Liaison qui permet au Vornacht de surveiller l'unité familiale comme une entité unique. Une anomalie chez l'un remonte automatiquement sur le profil de l'autre.</div></div>
+<div class="acc"><button class="acc-t">Le Passage <span class="acc-icon">+</span></button><div class="acc-b">Quand un croyant est mourant, le prêtre administre les derniers sacrements et oint le corps. Le technicien sanctifié extrait l'Œil de Dieu et son Grain — des décennies d'enregistrement neural. Archivé dans les mémoires du Vornacht. Les Pestiférés, les hérétiques et les athées n'ont droit à aucun rite. Pour le Vornacht, ils n'ont jamais existé.</div></div>
+</div>
+<div class="sh mb3"><p class="sh-eye">Technologie</p><h2 class="sh-title">L'Œil de Dieu</h2></div>
+<div class="g2 mb4">
+<div class="card"><p class="card-meta">Implant universel</p><h3 class="card-title">L'Œil</h3><p>Implanté lors de l'Éveil, activé lors de l'Ancrage. Émet en permanence — pensées dominantes, états émotionnels, doutes, déviances. Tout remonte dans le réseau du Vornacht.</p></div>
+<div class="card"><p class="card-meta">Module mémoriel</p><h3 class="card-title">Le Grain</h3><p>Module de sauvegarde mémorielle contenu dans l'Œil. Extrait lors du Passage. Des décennies d'enregistrement neural archivées. Le Vornacht apprend des morts autant que des vivants.</p></div>
+<div class="card"><p class="card-meta">Score</p><h3 class="card-title">Conformité</h3><p>Calculé en permanence à partir des données de l'Œil. Haut = accès et privilèges. Bas = surveillance renforcée, risque d'intervention. Un score qui s'effondre attire d'abord un curé, puis les Scruteurs.</p></div>
+<div class="card"><p class="card-meta">Unité spéciale</p><h3 class="card-title">Les Scruteurs</h3><p>Techniciens-soldats. Détectent les Yeux piratés ou silenciés. Scannent passivement les signatures neurales. Un silence là où il devrait y avoir un signal — c'est leur seul critère d'intervention.</p></div>
+</div>
+<div class="sh mb3"><p class="sh-eye">Pharmaceutique classifié</p><h2 class="sh-title">Le Sacrement Noir</h2></div>
+<div class="alert mb3"><span class="alert-icon">[ CLASSIFIÉ ]</span><p class="alert-body">Le Sacrement Noir est officiellement inexistant. Officieusement, tout le monde sait.</p></div>
+<div class="prose mb5"><p>Une drogue neuronale développée dans les laboratoires sanctifiés du Vornacht. Sous son influence, un homme ordinaire rivalise brièvement avec un Pestiféré de degré I. Réflexes augmentés, perception décuplée, résistance physique au-delà du raisonnable.</p><p>À forte dose il dévore l'esprit. Rage incontrôlable, perte progressive de l'humanité. Les utilisateurs trop dépendants — les <strong>Consumés</strong> — deviennent des armes sans cible fixe. Le Vornacht les récupère quand il peut. Les abandonne quand il ne peut pas.</p></div>
+<div class="sh mb3"><p class="sh-eye">Doctrine</p><h2 class="sh-title">Les Péchés Capitaux</h2></div>
+<div class="g3 mb5">
+<div class="card"><span class="badge br mb2">Hérésie suprême</span><h3 class="card-title">L'Athéisme</h3><p>Nier le fondement même du pouvoir. Tribunal de la Foi. Peine : exécution publique.</p></div>
+<div class="card"><span class="badge br mb2">Hérésie majeure</span><h3 class="card-title">L'Hérésie</h3><p>Contester la doctrine de l'intérieur. Variable selon le degré. De la rééducation à l'exécution.</p></div>
+<div class="card"><span class="badge br mb2">Péché capital</span><h3 class="card-title">L'Homosexualité</h3><p>Menace le modèle familial fondateur de l'ordre social. Tribunal de la Foi.</p></div>
+<div class="card"><span class="badge br mb2">Aberration théologique</span><h3 class="card-title">La Peste</h3><p>Mutation incontrôlée qui échappe à l'ordre divin. Traquée, capturée, éliminée ou retournée.</p></div>
+<div class="card"><span class="badge br mb2">Hérésie technique</span><h3 class="card-title">La Science Libre</h3><p>Toute recherche hors institution. Génétique libre, IA autonome, philosophie politique.</p></div>
+<div class="card"><span class="badge br mb2">Sabotage</span><h3 class="card-title">Pirater l'Œil</h3><p>Modifier ou silencier son Œil de Dieu. Les Scruteurs traquent. La Main Gauche agit.</p></div>
+</div>
+</div>
+<div class="sidebar">
+<div class="snav"><p class="snav-t">Sur cette page</p><ul><li><a href="#">La Nuit de la Chute</a></li><li><a href="#">L'Archiviste</a></li><li><a href="#">Le Codex</a></li><li><a href="#">Hiérarchie</a></li><li><a href="#">Les Rites</a></li><li><a href="#">L'Œil de Dieu</a></li><li><a href="#">Sacrement Noir</a></li><li><a href="#">Les Péchés</a></li></ul></div>
+<div class="card mt3"><p class="card-meta">Territoire sacré</p><h3 class="card-title">L'Axium</h3><p>Enclave au cœur du Septuaire. Siège de Sa Sainteté. Capitale : <strong>Calaveum</strong>. Reconnue par tous. Violer ses frontières = guerre contre le Vornacht entier.</p></div>
+<div class="card mt3"><p class="card-meta">Monnaies</p><h3 class="card-title">Crux &amp; Intraçable</h3><p>Le <strong>Crux</strong> est la monnaie de référence interterritoriale. L'<strong>Intraçable</strong> est la crypto noire du marché clandestin — que le Vornacht ne peut ni bénir ni étouffer.</p></div>
+</div>
+</div>
+</div>
+<footer class="footer"><p class="footer-t">Caladan — Wiki RP 18+ — Écriture collaborative — 2470 — Ère de la Rédemption</p></footer>
+<script>document.addEventListener("DOMContentLoaded",()=>{const p=window.location.pathname.split("/").pop()||"index.html";document.querySelectorAll(".nav-links a").forEach(a=>{if(a.getAttribute("href")===p)a.classList.add("active")});document.querySelectorAll(".acc-t").forEach(t=>{t.addEventListener("click",()=>{const b=t.nextElementSibling,o=t.classList.contains("open");document.querySelectorAll(".acc-t").forEach(x=>{x.classList.remove("open");x.nextElementSibling.classList.remove("open")});if(!o){t.classList.add("open");b.classList.add("open")}})})});</script>
+</body></html>
