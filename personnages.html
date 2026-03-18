@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Personnages — Caladan Wiki</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+:root{--bg-deep:#05050d;--bg-base:#09091a;--bg-surface:#0d0d24;--bg-card:#0f0f2a;--bg-card-hover:#141438;--border:#1e1e4a;--border-bright:#2a2a6a;--gold:#c4962a;--gold-bright:#e8b84b;--gold-dim:#7a5c1a;--cold:#3a7fd4;--cold-bright:#5a9ff4;--cold-dim:#1a3a6a;--text-primary:#e8dfc8;--text-secondary:#9a8f78;--text-dim:#5a5248;--red:#c44a3a;--red-bright:#e46a5a;--scan:rgba(255,255,255,0.012)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg-deep);color:var(--text-primary);font-family:'Crimson Text',Georgia,serif;font-size:1.05rem;line-height:1.7;min-height:100vh;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scan) 2px,var(--scan) 4px);pointer-events:none;z-index:1000}
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;background:linear-gradient(180deg,rgba(5,5,13,.98),rgba(5,5,13,.88));border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-inner{max-width:1350px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--gold-bright);text-decoration:none;letter-spacing:.18em;text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:.45rem 1rem;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,background .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-bright);background:rgba(196,150,42,.06)}
+.nav-links a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold)}
+.wrap{max-width:1350px;margin:0 auto;padding:0 2rem;padding-top:60px}
+.page-header{padding:3.5rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;position:relative}
+.page-header::before{content:'';position:absolute;bottom:-1px;left:0;width:180px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.ph-eye{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.3em;color:var(--cold);text-transform:uppercase;margin-bottom:.6rem}
+.ph-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.ph-title em{color:var(--gold-bright);font-style:normal}
+.ph-lead{font-size:1.1rem;font-style:italic;color:var(--text-secondary);max-width:680px}
+.sh{margin-bottom:1.75rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);position:relative}
+.sh::after{content:'';position:absolute;bottom:-1px;left:0;width:70px;height:1px;background:var(--gold)}
+.sh-eye{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--cold-bright);text-transform:uppercase;margin-bottom:.3rem;opacity:.75}
+.sh-title{font-family:'Cinzel',serif;font-size:1.25rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.card{background:var(--bg-card);border:1px solid var(--border);padding:1.5rem;position:relative;transition:all .2s}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold-dim);transition:background .2s}
+.card:hover{border-color:var(--border-bright);background:var(--bg-card-hover);transform:translateY(-2px)}
+.card:hover::before{background:var(--gold)}
+.card-meta{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-bottom:.4rem;opacity:.8}
+.card-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:.6rem}
+.card p{color:var(--text-secondary);font-size:.9rem;line-height:1.6}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.data-table{width:100%;border-collapse:collapse;font-size:.88rem;margin:1.25rem 0}
+.data-table th{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--border-bright);background:rgba(196,150,42,.04)}
+.data-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top}
+.data-table tr:hover td{background:rgba(196,150,42,.03);color:var(--text-primary)}
+.data-table td:first-child{color:var(--text-primary);font-weight:600}
+.lore-q{background:var(--bg-surface);border-left:3px solid var(--gold);padding:1.4rem 1.75rem;margin:2rem 0;font-style:italic;color:var(--text-secondary);position:relative;font-size:1.02rem;line-height:1.75}
+.lore-q::before{content:'"';position:absolute;top:-.5rem;left:1.4rem;font-family:'Cinzel',serif;font-size:3.5rem;color:var(--gold-dim);line-height:1;pointer-events:none}
+.badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.18rem .55rem;border:1px solid currentColor}
+.bg{color:var(--gold);border-color:var(--gold-dim);background:rgba(196,150,42,.07)}
+.bc{color:var(--cold-bright);border-color:var(--cold-dim);background:rgba(58,127,212,.07)}
+.br{color:var(--red-bright);border-color:var(--red);background:rgba(196,74,58,.07)}
+.bd{color:var(--text-dim);border-color:var(--text-dim);background:transparent}
+.alert{padding:.9rem 1.4rem;border:1px solid var(--border);margin:1.25rem 0;display:flex;gap:.9rem;align-items:flex-start}
+.alert-icon{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gold);white-space:nowrap;padding-top:.12rem}
+.alert-body{font-size:.88rem;color:var(--text-secondary)}
+.acc{border:1px solid var(--border);margin-bottom:.4rem}
+.acc-t{width:100%;padding:.9rem 1.4rem;background:var(--bg-card);border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-primary);transition:background .2s,color .2s;text-align:left}
+.acc-t:hover{background:var(--bg-card-hover);color:var(--gold-bright)}
+.acc-t.open{color:var(--gold-bright);border-bottom:1px solid var(--border)}
+.acc-icon{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--gold-dim);transition:transform .2s}
+.acc-t.open .acc-icon{transform:rotate(45deg)}
+.acc-b{display:none;padding:1.4rem;background:var(--bg-base);font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+.acc-b.open{display:block}
+.prose{max-width:760px}
+.prose h2{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-bright);margin:2.25rem 0 .9rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
+.prose h3{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--text-primary);margin:1.6rem 0 .65rem}
+.prose p{margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose p strong{color:var(--text-primary);font-weight:600}
+.prose ul,.prose ol{padding-left:1.4rem;margin-bottom:1.1rem;color:var(--text-secondary)}
+.prose li{margin-bottom:.35rem}
+.prose li::marker{color:var(--gold-dim)}
+.ls-2sided{display:grid;grid-template-columns:1fr 270px;gap:2.5rem;align-items:start}
+.sidebar{position:sticky;top:76px}
+.snav{background:var(--bg-card);border:1px solid var(--border);padding:1.4rem}
+.snav-t{font-family:'Cinzel',serif;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.snav ul{list-style:none}
+.snav li{border-bottom:1px solid var(--border)}
+.snav a{display:block;padding:.55rem .45rem;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .2s,padding-left .2s}
+.snav a:hover{color:var(--gold-bright);padding-left:.7rem}
+.footer{margin-top:4.5rem;padding:1.75rem 2rem;border-top:1px solid var(--border);text-align:center}
+.footer-t{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase}
+.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}.mb3{margin-bottom:1.5rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:3rem}.mt3{margin-top:1.5rem}.mt4{margin-top:2rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.f1{animation:fadeUp .55s .08s ease both}.f2{animation:fadeUp .55s .2s ease both}.f3{animation:fadeUp .55s .32s ease both}.f4{animation:fadeUp .55s .44s ease both}
+@media(max-width:900px){.ls-2sided{grid-template-columns:1fr}.sidebar{position:static}.g2,.g3{grid-template-columns:1fr}.nav-links li:nth-child(n+4){display:none}}
+@media(max-width:600px){.wrap{padding:0 1rem}.nav-links{display:none}}
+
+.pnj-hdr{display:grid;grid-template-columns:160px 1fr;gap:2rem;margin-bottom:2rem;padding:1.75rem;border:1px solid var(--border);background:var(--bg-card);position:relative;overflow:hidden}
+.pnj-hdr.sorath::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cold-dim),var(--cold-bright),var(--cold-dim))}
+.pnj-hdr.simandla::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-bright),var(--gold-dim))}
+.pnj-portrait{aspect-ratio:3/4;background:var(--bg-surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.pnj-portrait-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(196,150,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(196,150,42,.05) 1px,transparent 1px);background-size:20px 20px}
+.pnj-monogram{font-family:"Cinzel",serif;font-size:3rem;font-weight:900;opacity:.12}
+.pnj-title{font-family:"Share Tech Mono",monospace;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cold);margin-bottom:.4rem}
+.pnj-name{font-family:"Cinzel",serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}
+.pnj-sub{font-size:.95rem;font-style:italic;color:var(--text-secondary);margin-bottom:1.2rem}
+.pnj-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:1px;background:var(--border);margin-top:1.2rem}
+.pnj-stat{background:var(--bg-base);padding:.65rem .75rem}
+.pnj-sl{font-family:"Share Tech Mono",monospace;font-size:.52rem;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.15rem}
+.pnj-sv{font-family:"Cinzel",serif;font-size:.76rem;font-weight:700;color:var(--text-primary)}
+.exp-list{display:grid;gap:.9rem;margin:1.25rem 0}
+.exp-item{border:1px solid var(--border);padding:1.1rem 1.4rem;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;background:var(--bg-card);transition:border-color .2s}
+.exp-item:hover{border-color:var(--border-bright)}
+.exp-code{font-family:"Share Tech Mono",monospace;font-size:.58rem;letter-spacing:.15em;color:var(--gold-dim);text-transform:uppercase;white-space:nowrap;padding-top:.1rem}
+.exp-name{font-family:"Cinzel",serif;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:.35rem}
+.exp-desc{font-size:.86rem;color:var(--text-secondary);line-height:1.6}
+.boss-warn{background:rgba(196,74,58,.05);border:1px solid rgba(196,74,58,.25);padding:1.4rem;margin:0 0 2.5rem}
+.boss-warn-t{font-family:"Cinzel",serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red-bright);margin-bottom:.6rem}
+.boss-warn p{font-size:.88rem;color:var(--text-secondary);line-height:1.6}
+.opnj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="index.html" class="nav-logo">Caladan</a><ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="vornacht.html">Le Vornacht</a></li><li><a href="monde.html">Le Monde</a></li><li><a href="factions.html">Factions</a></li><li><a href="personnages.html">Personnages</a></li><li><a href="regles.html">Règles RP</a></li></ul></div></nav>
+<div class="wrap">
+<div class="page-header f1"><p class="ph-eye">04 // PNJ Pivots</p><h1 class="ph-title"><em>Personnages</em></h1><p class="ph-lead">Les forces de la nature qui structurent le monde. Ces personnages ne sont pas jouables. Ils pèsent sur le RP depuis les coulisses — dans les rumeurs, les rapports, les décisions qui changent des territoires entiers.</p></div>
+
+<div class="boss-warn"><p class="boss-warn-t">[ Avertissement — PNJ Boss ]</p><p>Sorath Zorhel et Simandla Dlamini sont des PNJ non jouables. Ce sont des boss d'arcs finaux. Les affronter directement est une trajectoire qui se construit sur des mois de RP, pas une option de départ.</p></div>
+
+<div class="sh mb3"><p class="sh-eye">Main Gauche — Ombre Principale</p><h2 class="sh-title">Sorath Zorhel</h2></div>
+<div class="pnj-hdr sorath">
+<div class="pnj-portrait"><div class="pnj-portrait-grid"></div><span class="pnj-monogram" style="color:var(--cold);">SZ</span></div>
+<div>
+<p class="pnj-title">Main Gauche — Ombre Principale — Garde de Sa Sainteté</p>
+<h2 class="pnj-name" style="color:var(--cold-bright);">Sorath Zorhel</h2>
+<p class="pnj-sub">Ce qu'un être humain peut atteindre au sommet absolu de la discipline pure.</p>
+<div class="ftags" style="display:flex;gap:.5rem;flex-wrap:wrap"><span class="badge bc">PNJ Boss</span><span class="badge bd">Non jouable</span><span class="badge bc">Arc final</span></div>
+<div class="pnj-stats">
+<div class="pnj-stat"><p class="pnj-sl">Âge</p><p class="pnj-sv">38 ans</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Taille</p><p class="pnj-sv">1m96</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Poids</p><p class="pnj-sv">127 kg</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Origine</p><p class="pnj-sv">Maison Zorhel</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Rang</p><p class="pnj-sv">Ombre Principale</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Foi</p><p class="pnj-sv">Athée pragmatique</p></div>
+</div>
+</div>
+</div>
+<div class="ls-2sided mb5">
+<div class="prose">
+<p>Troisième fils du seigneur de la Maison Zorhel. Pas l'héritier. Pas le second. Le troisième — celui à qui on offre la liberté de choisir parce qu'on peut se permettre de le laisser partir.</p>
+<p>Sorath ne croit pas en Dieu. Il ne croit pas au Vornacht comme institution divine. Ce qu'il croit — et c'est la seule conviction qu'il n'a jamais remise en question — c'est que l'ordre est préférable au chaos. Pas parce que l'ordre est juste. Parce que le chaos tue plus de gens et plus vite.</p>
+<h2>Le Vide — Son Art Martial</h2>
+<p>Le Vide repose sur un principe unique : le corps humain n'utilise jamais plus de 40% de sa capacité réelle. Sorath a reconstruit son corps pour supporter l'accès aux 60% restants et développé la discipline psychique pour désactiver volontairement les mécanismes de sécurité neurologiques. En état de Vide profond, ses frappes dans l'air génèrent des ondes de choc avec une portée de 50 à 200 mètres.</p>
+<div class="sh mb3 mt4"><p class="sh-eye">Hauts faits documentés</p><h2 class="sh-title">Exploits</h2></div>
+<div class="exp-list">
+<div class="exp-item"><span class="exp-code">EX-01</span><div><p class="exp-name">La Purge de Keth-Naur</p><p class="exp-desc">117 Pestiférés de degré II infiltrés dans une ville de 40 000 habitants. Deux compagnies de la Main Droite avaient disparu en six jours. Sorath est entré seul. Sorti quatre jours plus tard. 114 neutralisés. L'un des trois survivants s'est rendu spontanément au Vornacht : continuer à vivre en sachant que Sorath existait était insupportable.</p></div></div>
+<div class="exp-item"><span class="exp-code">EX-02</span><div><p class="exp-name">Le Pont de Vassel</p><p class="exp-desc">Tentative d'assassinat contre Sa Sainteté. 12 Fantômes neutralisés en 4 minutes. Sorath désarmé en tenue de cérémonie. A traversé 6 Pestiférés de degré II et 34 agents humains en 7 minutes 40 secondes. L'enregistrement des caméras est classifié Sceau Absolu. Ceux qui l'ont visionné ont demandé à ne plus jamais avoir à le faire.</p></div></div>
+<div class="exp-item"><span class="exp-code">EX-03</span><div><p class="exp-name">La Traque de l'Écho Silencieux</p><p class="exp-desc">Pestiféré de degré III infiltré dans la Curie pendant 8 ans. Deux cardinaux assassinés. Sorath l'a traqué 40 jours. Leur rencontre finale n'est consignée nulle part. Sorath a pris 2 mois de récupération — la seule période d'indisponibilité documentée dans sa carrière.</p></div></div>
+</div>
+</div>
+<div class="sidebar">
+<div class="card"><p class="card-meta">Relation clé</p><h3 class="card-title">Simandla Dlamini</h3><p>Ami et rival. La seule chose que Sorath ne peut pas entièrement analyser. Leurs séances d'entraînement se déroulent dans une installation dont les murs ont été remplacés trois fois.</p></div>
+<div class="card mt3"><p class="card-meta">Capacité signature</p><h3 class="card-title">Le Vide</h3><p>Art martial sans équivalent. Force à 8x la norme. Frappes à distance par onde cinétique. Trois niveaux d'activation. Le troisième niveau n'a été activé que trois fois dans l'histoire documentée.</p></div>
+</div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Main Droite — Bras Armé de l'Éternel</p><h2 class="sh-title">Simandla Dlamini</h2></div>
+<div class="pnj-hdr simandla">
+<div class="pnj-portrait"><div class="pnj-portrait-grid"></div><span class="pnj-monogram" style="color:var(--gold);">SD</span></div>
+<div>
+<p class="pnj-title">Main Droite — Bras Armé de l'Éternel — Commandant Suprême</p>
+<h2 class="pnj-name" style="color:var(--gold-bright);">Simandla Dlamini</h2>
+<p class="pnj-sub">L'aboutissement de six siècles d'évolution d'une lignée issue de Shaka Zulu.</p>
+<div class="ftags" style="display:flex;gap:.5rem;flex-wrap:wrap"><span class="badge bg">PNJ Boss</span><span class="badge bd">Non jouable</span><span class="badge bg">Arc final</span></div>
+<div class="pnj-stats">
+<div class="pnj-stat"><p class="pnj-sl">Âge</p><p class="pnj-sv">43 ans</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Taille</p><p class="pnj-sv">2m04</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Poids</p><p class="pnj-sv">147 kg</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Origine</p><p class="pnj-sv">Maison Dlamini</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Rang</p><p class="pnj-sv">Bras Armé</p></div>
+<div class="pnj-stat"><p class="pnj-sl">Foi</p><p class="pnj-sv">Croyant sincère</p></div>
+</div>
+</div>
+</div>
+<div class="prose mb4">
+<p>Né dans une Maison mineure sans poids territorial. Il a atteint le sommet du monde par la seule force de ce qu'il porte dans le sang depuis six siècles. Sa lignée descend directement de Shaka kaSenzangakhona — roi des Zoulous, le seul homme dont Napoléon aurait voulu faire son général.</p>
+<p>Il croit en Dieu avec la certitude tranquille et absolue de quelqu'un pour qui cette croyance n'est pas une question ouverte. Sa force brute est estimée à 22 fois la norme humaine en état de repos. Un affrontement à pleine puissance entre Simandla et Sorath est classifié par les archives du Dicastère des Sciences comme un événement géologique potentiel.</p>
+</div>
+<div class="exp-list mb5">
+<div class="exp-item"><span class="exp-code">EX-01</span><div><p class="exp-name">La Bataille de Naer-Voss</p><p class="exp-desc">À 20 ans, 40 soldats sous son commandement contre une coalition de 800 hommes. A retiré ses hommes du champ pour les protéger. A terminé la bataille seul. 40 minutes. Promu Sergent immédiatement après.</p></div></div>
+<div class="exp-item"><span class="exp-code">EX-02</span><div><p class="exp-name">La Campagne des Trois Territoires</p><p class="exp-desc">Six mois contre des Pestiférés de degrés II et III menaçant trois nations simultanément. Commandait les forces combinées du Vornacht sur trois fronts depuis un poste mobile qu'il déplaçait lui-même — parfois à des vitesses que ses officiers avaient du mal à suivre.</p></div></div>
+<div class="exp-item"><span class="exp-code">EX-03</span><div><p class="exp-name">Le Jour Blanc</p><p class="exp-desc">Classifié Sceau Absolu. Ce qui est connu : une zone de plusieurs kilomètres carrés a été rendue inhabitable pendant trois mois. Simandla a pris quatre mois de retrait après. Il n'a jamais expliqué ce qui s'était passé. Sa Sainteté a ordonné que ce dossier ne soit jamais évoqué en sa présence.</p></div></div>
+</div>
+
+<div class="sh mb3"><p class="sh-eye">Figures secondaires</p><h2 class="sh-title">Autres PNJ Notables</h2></div>
+<div class="opnj-grid mb5">
+<div class="card"><p class="card-meta">Maison Zorhel — Drakarth</p><h3 class="card-title">Zurael of Zorhel</h3><p>Dirigeante froide de la Maison la plus puissante. Une multinationale dans un corps. Offre des contrats lucratifs mais exige une loyauté immorale. Son prototype génétique en fuite est une accroche narrative active.</p></div>
+<div class="card"><p class="card-meta">Vestalum — Cardinal</p><h3 class="card-title">Cardinal Maer Tervin</h3><p>Gardien doctrinal. Public : pieux. Privé : manipulateur de récits. Cryptographie rituelle et contrôle des archives interdites. Peut offrir pardon rituel contre une faveur contestable.</p></div>
+<div class="card"><p class="card-meta">Rookhaven — Marché noir</p><h3 class="card-title">Mira Korr</h3><p>Fixer et courtisane des bas-fonds. Réseau étendu. Accès aux archives interdites et aux faux-Yeux. Possède une carte d'accès à une archive secondaire convoitée par plusieurs Maisons.</p></div>
+<div class="card"><p class="card-meta">Saltwright — Voix Interdites</p><h3 class="card-title">Asha Maru</h3><p>Leader intellectuelle clandestine. Diffuse des textes interdits. Possède une preuve qui change l'interprétation de la Chute — son leak pourrait déclencher des révoltes à l'échelle continentale.</p></div>
+<div class="card"><p class="card-meta">Keth-Naur — Banneret</p><h3 class="card-title">Banneret Kall Drovik</h3><p>Chef d'une maison banneret, district industriel de Keth-Naur. L'un de ses hommes a été compromis par la Peste. Il veut une solution discrète avant que le scandale éclate.</p></div>
+<div class="card"><p class="card-meta">Hollow — Archives</p><h3 class="card-title">'Grey' Sela</h3><p>Intermédiaire neutre. Fausses identités et archives nettoyées. Possède un fichier listant les employés zélés du Dicastère, vendable au plus offrant. Neutralité absolue — jusqu'à un certain prix.</p></div>
+<div class="card"><p class="card-meta">Pestiféré — Degré II/III</p><h3 class="card-title">The Pale Child (Ishra)</h3><p>Jeune individu de puissance anormale, charismatique et imprévisible. Idéologie de la "nouvelle forme humaine". Son sort est le révélateur moral du RP.</p></div>
+<div class="card"><p class="card-meta">Grime — Technicien</p><h3 class="card-title">Rafiq 'The Wrench' Bren</h3><p>Mécano talentueux des Profondeurs. Répare des implants illégaux, construit des nanoforges miniatures. Peut améliorer les implants des joueurs — contre faveur future.</p></div>
+</div>
+</div>
+<footer class="footer"><p class="footer-t">Caladan — Wiki RP 18+ — Écriture collaborative — 2470 — Ère de la Rédemption</p></footer>
+<script>document.addEventListener('DOMContentLoaded',()=>{const p=window.location.pathname.split('/').pop()||'index.html';document.querySelectorAll('.nav-links a').forEach(a=>{if(a.getAttribute('href')===p)a.classList.add('active')});document.querySelectorAll('.acc-t').forEach(t=>{t.addEventListener('click',()=>{const b=t.nextElementSibling,o=t.classList.contains('open');document.querySelectorAll('.acc-t').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open')});if(!o){t.classList.add('open');b.classList.add('open')}})})});</script>
+</body></html>
