@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Back Office — Caladan Canon</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;1,400&family=Share+Tech+Mono&display=swap');
+:root{--bg:#04040c;--bg1:#07071a;--bg2:#0a0a22;--bg3:#0e0e2e;--b0:#18183a;--b1:#22225a;--b2:#2e2e80;--gold:#c4962a;--gold2:#e8b84b;--gold3:#7a5c1a;--cold:#3a7fd4;--cold2:#5a9ff4;--cold3:#1a3a6a;--red:#c44a3a;--red2:#e46a5a;--green:#2a8a4a;--green2:#4aaa6a;--t0:#eee8d4;--t1:#a89f88;--t2:#6a6050;--t3:#3a3028}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Crimson Text',Georgia,serif;font-size:15px;background:var(--bg);color:var(--t0)}
+.shell{display:flex;min-height:100vh}
+
+.aside{width:220px;min-height:100vh;background:var(--bg1);border-right:1px solid var(--b0);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+.aside::-webkit-scrollbar{width:3px}.aside::-webkit-scrollbar-thumb{background:var(--b1)}
+.a-logo{padding:1.1rem 1.1rem .8rem;border-bottom:1px solid var(--b0)}
+.a-logo h1{font-family:'Cinzel',serif;font-size:.88rem;font-weight:900;color:var(--gold2);letter-spacing:.18em;text-transform:uppercase}
+.a-logo p{font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-top:.2rem;opacity:.7}
+.a-lbl{font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;color:var(--t2);padding:.55rem 1rem .2rem;border-top:1px solid var(--b0);margin-top:.2rem}
+.a-btn{display:flex;align-items:center;gap:.55rem;padding:.4rem 1rem;font-family:'Cinzel',serif;font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t1);background:none;border:none;cursor:pointer;width:100%;text-align:left;transition:all .15s;border-left:2px solid transparent}
+.a-btn:hover{color:var(--t0);background:rgba(255,255,255,.03)}
+.a-btn.on{color:var(--gold2);border-left-color:var(--gold);background:rgba(196,150,42,.06)}
+.a-btn .dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.4;flex-shrink:0}
+.a-btn.on .dot{opacity:1;background:var(--gold)}
+.a-foot{margin-top:auto;padding:.9rem 1rem;border-top:1px solid var(--b0)}
+.a-foot p{font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.15em;color:var(--t2);text-transform:uppercase}
+
+.amain{margin-left:220px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.atop{height:50px;background:rgba(4,4,12,.97);border-bottom:1px solid var(--b0);position:sticky;top:0;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;flex-shrink:0}
+.atop-t{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t0)}
+.acont{padding:1.5rem;flex:1}
+
+.panel{display:none}.panel.on{display:block}
+
+.srow{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1px;background:var(--b0);border:1px solid var(--b0);margin-bottom:1.5rem}
+.sbox{background:var(--bg2);padding:1rem;text-align:center}
+.sv2{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:900;color:var(--gold2);display:block;line-height:1;margin-bottom:.3rem}
+.sl2{font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.18em;color:var(--t2);text-transform:uppercase}
+
+.sh2{margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--b0);display:flex;justify-content:space-between;align-items:center}
+.sh2 h2{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t0)}
+.sh2 p{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-bottom:.2rem;opacity:.8}
+
+.btn2{display:inline-flex;align-items:center;gap:.4rem;padding:.42rem .9rem;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:1px solid;cursor:pointer;transition:all .18s;background:none}
+.bg2c{color:var(--gold2);border-color:var(--gold3);background:rgba(196,150,42,.07)}.bg2c:hover{background:rgba(196,150,42,.14);border-color:var(--gold)}
+.bc2c{color:var(--cold2);border-color:var(--cold3);background:rgba(58,127,212,.07)}.bc2c:hover{background:rgba(58,127,212,.14)}
+.br2c{color:var(--red2);border-color:var(--red);background:rgba(196,74,58,.07)}.br2c:hover{background:rgba(196,74,58,.14)}
+.bd2c{color:var(--t1);border-color:var(--b1)}.bd2c:hover{border-color:var(--b2);color:var(--t0)}
+.bsm{padding:.28rem .65rem;font-size:.58rem}
+.bfull{width:100%;justify-content:center;padding:.65rem}
+
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-family:'Cinzel',serif;font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--b1);background:rgba(196,150,42,.04)}
+.tbl td{padding:.55rem .8rem;border-bottom:1px solid var(--b0);color:var(--t1);font-size:.8rem;vertical-align:middle}
+.tbl td:first-child{color:var(--t0);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase}
+.tbl tr:hover td{background:rgba(196,150,42,.02)}
+.tbl .acts{display:flex;gap:.35rem}
+
+.badge2{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;padding:.14rem .42rem;border:1px solid currentColor}
+.bv{color:var(--green2);border-color:var(--green);background:rgba(42,138,74,.08)}
+.bj{color:var(--gold2);border-color:var(--gold3);background:rgba(196,150,42,.08)}
+.bb{color:var(--t2);border-color:var(--t2)}
+.bo{color:var(--red2);border-color:var(--red);background:rgba(196,74,58,.08)}
+.bs{color:var(--t2);border-color:var(--t2)}
+
+.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:800;overflow-y:auto;padding:2rem;align-items:flex-start;justify-content:center}
+.moverlay.on{display:flex}
+.modal2{background:var(--bg1);border:1px solid var(--b1);width:100%;max-width:700px}
+.mhead{padding:1.1rem 1.4rem;border-bottom:1px solid var(--b0);display:flex;justify-content:space-between;align-items:center}
+.mhead h3{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2)}
+.mclose{background:none;border:none;cursor:pointer;color:var(--t1);font-size:1.1rem}
+.mbody{padding:1.4rem}
+.mfoot{padding:.9rem 1.4rem;border-top:1px solid var(--b0);display:flex;justify-content:flex-end;gap:.65rem}
+
+.fgrid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fgrid2.full{grid-template-columns:1fr}
+.fg2{display:flex;flex-direction:column;gap:.32rem}
+.fg2 label{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.9}
+.fg2 input,.fg2 select,.fg2 textarea{background:var(--bg2);border:1px solid var(--b0);color:var(--t0);font-family:'Crimson Text',serif;font-size:.88rem;padding:.48rem .7rem;outline:none;transition:border-color .2s;resize:vertical}
+.fg2 textarea{min-height:80px}
+.fg2 input:focus,.fg2 select:focus,.fg2 textarea:focus{border-color:var(--gold3)}
+.fg2 input::placeholder,.fg2 textarea::placeholder{color:var(--t2)}
+select option{background:var(--bg2)}
+.fsec{border-top:1px solid var(--b0);padding-top:.9rem;margin-top:.9rem}
+.fsec-t{font-family:'Cinzel',serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cold2);margin-bottom:.8rem}
+
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.65rem;margin-bottom:1.4rem}
+.tc{background:var(--bg2);border:1px solid var(--b0);padding:.9rem;text-align:center;cursor:pointer;transition:all .18s}
+.tc:hover{border-color:var(--b1);background:var(--bg3)}
+.tc.sel{border-color:var(--gold);background:rgba(196,150,42,.07)}
+.tc-icon{font-size:1.3rem;margin-bottom:.35rem;display:block}
+.tc-name{font-family:'Cinzel',serif;font-size:.64rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t0)}
+
+.rl{display:flex;flex-direction:column;gap:.45rem}
+.ri2{background:var(--bg2);border:1px solid var(--b0);padding:.7rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:border-color .15s}
+.ri2:hover{border-color:var(--b1)}
+.ri2-l h4{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--t0);margin-bottom:.18rem}
+.ri2-l p{font-size:.72rem;color:var(--t1)}
+.ri2-r{flex-shrink:0;display:flex;gap:.35rem;align-items:center}
+
+.cl{display:flex;flex-direction:column;gap:.35rem}
+.ci{display:grid;grid-template-columns:auto auto 1fr;gap:.7rem;align-items:start;padding:.55rem 0;border-bottom:1px solid var(--b0)}
+.ci:last-child{border-bottom:none}
+.ci-t{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--t2);white-space:nowrap;letter-spacing:.05em}
+.ci-a{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.ci-d{font-size:.8rem;color:var(--t1)}
+
+.empty2{text-align:center;padding:2.5rem;color:var(--t2)}
+.empty2 .ei{font-size:1.8rem;margin-bottom:.65rem;opacity:.4}
+.empty2 p{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase}
+
+.toast2{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:1px solid var(--green);padding:.7rem 1.1rem;font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--green2);text-transform:uppercase;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s}
+.toast2.show{transform:translateY(0);opacity:1}
+
+.alert2{padding:.8rem 1.1rem;border:1px solid var(--b0);display:flex;gap:.8rem;align-items:flex-start;margin:1.1rem 0}
+.alert2-icon{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gold);white-space:nowrap;padding-top:.1rem}
+.alert2-body{font-size:.85rem;color:var(--t1)}
+
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="aside">
+<div class="a-logo"><h1>Caladan</h1><p>Back Office Canon</p></div>
+<p class="a-lbl">Tableau de bord</p>
+<button class="a-btn on" onclick="nav('dashboard')"><span class="dot"></span>Vue d'ensemble</button>
+<button class="a-btn" onclick="nav('new')"><span class="dot"></span>Nouvelle entrée</button>
+<button class="a-btn" onclick="nav('changelog')"><span class="dot"></span>Journal</button>
+<p class="a-lbl">Canon</p>
+<button class="a-btn" onclick="nav('list','pays')"><span class="dot"></span>Pays</button>
+<button class="a-btn" onclick="nav('list','maison')"><span class="dot"></span>Grandes Maisons</button>
+<button class="a-btn" onclick="nav('list','personnage')"><span class="dot"></span>Personnages</button>
+<button class="a-btn" onclick="nav('list','institution')"><span class="dot"></span>Institutions</button>
+<button class="a-btn" onclick="nav('list','technologie')"><span class="dot"></span>Technologies</button>
+<p class="a-lbl">RP Vivant</p>
+<button class="a-btn" onclick="nav('list','fiche_pj')"><span class="dot"></span>Fiches PJ</button>
+<button class="a-btn" onclick="nav('list','arc')"><span class="dot"></span>Arcs narratifs</button>
+<button class="a-btn" onclick="nav('list','session')"><span class="dot"></span>Sessions</button>
+<button class="a-btn" onclick="nav('list','evenement')"><span class="dot"></span>Événements</button>
+<p class="a-lbl">Outils</p>
+<button class="a-btn" onclick="nav('export')"><span class="dot"></span>Exporter HTML</button>
+<button class="a-btn" onclick="nav('backup')"><span class="dot"></span>Sauvegarde / Import</button>
+<a href="index.html" style="display:flex;align-items:center;gap:.55rem;padding:.4rem 1rem;font-family:'Cinzel',serif;font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t2);text-decoration:none;border-left:2px solid transparent;transition:all .15s;margin-top:.25rem" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t2)'">← Retour au wiki</a>
+<div class="a-foot"><p id="a-count">— entrées</p></div>
+</aside>
+
+<main class="amain">
+<div class="atop">
+<span class="atop-t" id="atop-t">Vue d'ensemble</span>
+<button class="btn2 bg2c bsm" onclick="nav('new')">+ Nouvelle entrée</button>
+</div>
+<div class="acont">
+
+<!-- DASHBOARD -->
+<div class="panel on" id="p-dashboard">
+<div class="srow" id="dash-stats"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem">
+<div>
+<div class="sh2"><div><p>Flux A</p><h2>Entrées récentes</h2></div></div>
+<div class="rl" id="recent-l"><div class="empty2"><div class="ei">◈</div><p>Aucune entrée publiée</p></div></div>
+</div>
+<div>
+<div class="sh2"><div><p>Status</p><h2>Brouillons en attente</h2></div></div>
+<div class="rl" id="drafts-l"><div class="empty2"><div class="ei">✦</div><p>Aucun brouillon</p></div></div>
+</div>
+</div>
+</div>
+
+<!-- NOUVELLE ENTRÉE -->
+<div class="panel" id="p-new">
+<div class="sh2"><div><p>Flux A — Création</p><h2>Nouvelle Entrée</h2></div></div>
+<p style="font-size:.86rem;color:var(--t1);margin-bottom:1.1rem">Choisissez le type d'entrée. Chaque type dispose de son propre formulaire structuré.</p>
+<div class="tgrid">
+<div class="tc" onclick="selectType('pays')" data-t="pays"><span class="tc-icon">🗺</span><div class="tc-name">Pays</div></div>
+<div class="tc" onclick="selectType('maison')" data-t="maison"><span class="tc-icon">⚜</span><div class="tc-name">Grande Maison</div></div>
+<div class="tc" onclick="selectType('personnage')" data-t="personnage"><span class="tc-icon">◈</span><div class="tc-name">Personnage</div></div>
+<div class="tc" onclick="selectType('fiche_pj')" data-t="fiche_pj"><span class="tc-icon">📋</span><div class="tc-name">Fiche PJ</div></div>
+<div class="tc" onclick="selectType('institution')" data-t="institution"><span class="tc-icon">⚔</span><div class="tc-name">Institution</div></div>
+<div class="tc" onclick="selectType('technologie')" data-t="technologie"><span class="tc-icon">⬡</span><div class="tc-name">Technologie</div></div>
+<div class="tc" onclick="selectType('arc')" data-t="arc"><span class="tc-icon">✦</span><div class="tc-name">Arc Narratif</div></div>
+<div class="tc" onclick="selectType('session')" data-t="session"><span class="tc-icon">◇</span><div class="tc-name">Session</div></div>
+<div class="tc" onclick="selectType('evenement')" data-t="evenement"><span class="tc-icon">⊕</span><div class="tc-name">Événement</div></div>
+<div class="tc" onclick="selectType('lieu')" data-t="lieu"><span class="tc-icon">◉</span><div class="tc-name">Lieu</div></div>
+<div class="tc" onclick="selectType('doctrine')" data-t="doctrine"><span class="tc-icon">✝</span><div class="tc-name">Doctrine / Rite</div></div>
+<div class="tc" onclick="selectType('glossaire')" data-t="glossaire"><span class="tc-icon">◻</span><div class="tc-name">Glossaire</div></div>
+</div>
+<div id="form-c" style="display:none">
+<div class="sh2" style="margin-top:1.4rem">
+<div><p>Formulaire</p><h2 id="form-title">—</h2></div>
+<button class="btn2 bd2c bsm" onclick="document.getElementById('form-c').style.display='none';resetTC()">Changer</button>
+</div>
+<div id="form-body"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--b0)">
+<div style="display:flex;gap:.45rem">
+<button class="btn2 bd2c bsm" onclick="saveEntry('brouillon')">Brouillon</button>
+<button class="btn2 bg2c bsm" onclick="saveEntry('publie')">Publier</button>
+</div>
+<span style="font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--t2)" id="save-status"></span>
+</div>
+</div>
+</div>
+
+<!-- LIST -->
+<div class="panel" id="p-list">
+<div class="sh2">
+<div><p id="list-eye">—</p><h2 id="list-title">—</h2></div>
+<div style="display:flex;gap:.45rem;align-items:center">
+<input type="text" id="list-search" placeholder="Filtrer…" oninput="filterList()" style="background:var(--bg2);border:1px solid var(--b0);color:var(--t0);font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.32rem .65rem;outline:none;width:170px">
+<select id="list-sf" onchange="filterList()" style="background:var(--bg2);border:1px solid var(--b0);color:var(--t0);font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:.32rem .55rem;outline:none">
+<option value="">Tous statuts</option><option value="publie">Publié</option><option value="brouillon">Brouillon</option><option value="archive">Archivé</option>
+</select>
+</div>
+</div>
+<div id="list-tw"></div>
+</div>
+
+<!-- CHANGELOG -->
+<div class="panel" id="p-changelog">
+<div class="sh2"><div><p>Journal</p><h2>Modifications canoniques</h2></div>
+<button class="btn2 br2c bsm" onclick="if(confirm('Vider le journal ?')){localStorage.removeItem('caladan_changelog');renderCL();toast('Journal vidé')}">Vider</button>
+</div>
+<div id="cl-body"></div>
+</div>
+
+<!-- EXPORT -->
+<div class="panel" id="p-export">
+<div class="sh2"><div><p>Flux C</p><h2>Exporter des pages HTML</h2></div></div>
+<div class="alert2 mb3"><span class="alert2-icon">[ INFO ]</span><p class="alert2-body">Sélectionnez les entrées publiées à exporter en blocs HTML prêts à intégrer dans le wiki.</p></div>
+<div id="exp-list" style="margin-bottom:1.4rem"></div>
+<button class="btn2 bg2c bfull" onclick="expAll()">Exporter toutes les entrées publiées</button>
+</div>
+
+<!-- BACKUP -->
+<div class="panel" id="p-backup">
+<div class="sh2"><div><p>Données</p><h2>Sauvegarde & Import</h2></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem">
+<div>
+<h3 style="font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);margin-bottom:.9rem">Exporter les données</h3>
+<p style="font-size:.84rem;color:var(--t1);margin-bottom:.9rem;line-height:1.6">Télécharge toutes les entrées en JSON. À faire régulièrement.</p>
+<button class="btn2 bg2c bfull" onclick="expJSON()">Télécharger backup.json</button>
+</div>
+<div>
+<h3 style="font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cold2);margin-bottom:.9rem">Importer des données</h3>
+<p style="font-size:.84rem;color:var(--t1);margin-bottom:.9rem;line-height:1.6">Restaure un backup JSON précédemment exporté.</p>
+<input type="file" id="imp-file" accept=".json" style="display:none" onchange="impJSON(this)">
+<button class="btn2 bc2c bfull" onclick="document.getElementById('imp-file').click()">Charger un fichier JSON</button>
+</div>
+</div>
+<div style="border-top:1px solid var(--b0);padding-top:1.4rem;margin-top:1.8rem">
+<p style="font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red2);margin-bottom:.75rem">Zone danger</p>
+<button class="btn2 br2c" onclick="if(confirm('Supprimer TOUTES les entrées ?')){localStorage.removeItem('caladan_entries');localStorage.removeItem('caladan_changelog');renderDash();toast('Données effacées')}">Effacer toutes les données</button>
+</div>
+</div>
+
+</div>
+</main>
+</div>
+
+<!-- MODAL EDIT -->
+<div class="moverlay" id="moverlay2">
+<div class="modal2">
+<div class="mhead"><h3 id="modal-t">Éditer l'entrée</h3><button class="mclose" onclick="closeMod()">✕</button></div>
+<div class="mbody" id="mbody2"></div>
+<div class="mfoot">
+<button class="btn2 br2c bsm" onclick="delEntry(curEditId)">Supprimer</button>
+<button class="btn2 bd2c bsm" onclick="closeMod()">Annuler</button>
+<button class="btn2 bd2c bsm" onclick="updateEntry(curEditId,'brouillon')">Brouillon</button>
+<button class="btn2 bg2c bsm" onclick="updateEntry(curEditId,'publie')">Mettre à jour</button>
+</div>
+</div>
+</div>
+
+<div class="toast2" id="toast2"></div>
+<script>
+let cur='dashboard', curType='', curListType='', curEditId=null;
+
+const TL={pays:'Pays',maison:'Grande Maison',personnage:'Personnage',fiche_pj:'Fiche PJ',institution:'Institution',technologie:'Technologie',arc:'Arc Narratif',session:'Session',evenement:'Événement',lieu:'Lieu',doctrine:'Doctrine / Rite',glossaire:'Glossaire'};
+const SC=['Canon verrouillé','Canon jouable','Canon révisable','RP en cours','Non canon','Staff only'];
+const CE=['Ferme et entière','Retenu pour usage en jeu','Différencié mais révisable','Matériau de travail'];
+const SR=['Canon consolidé v1','Bible géopolitique v3','Grand Cartulaire','Fiche canonique dédiée','Session RP','Création nouvelle'];
+const AC=['Public','Joueurs','Staff only'];
+const CO=['Le Septuaire','La Forge-Monde','Les Marches de Brume','L\'Axium'];
+
+function ge(){ try{return JSON.parse(localStorage.getItem('caladan_entries')||'[]')}catch{return []} }
+function se(a){ localStorage.setItem('caladan_entries',JSON.stringify(a)) }
+function gc(){ try{return JSON.parse(localStorage.getItem('caladan_changelog')||'[]')}catch{return []} }
+function ac(type,action,title){ const l=gc(); l.unshift({time:new Date().toLocaleString('fr'),type,action,title}); if(l.length>100)l.pop(); localStorage.setItem('caladan_changelog',JSON.stringify(l)) }
+
+function toast(m){ const t=document.getElementById('toast2'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500) }
+
+function nav(p,sub){
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.a-btn').forEach(x=>x.classList.remove('on'));
+  const tgt=document.getElementById('p-'+p); if(tgt) tgt.classList.add('on');
+  const titles={dashboard:'Vue d\'ensemble',new:'Nouvelle entrée',changelog:'Journal',list:'Entrées',export:'Exporter HTML',backup:'Sauvegarde / Import'};
+  document.getElementById('atop-t').textContent=titles[p]||p;
+  if(p==='dashboard') renderDash();
+  if(p==='list'&&sub){ curListType=sub; renderList(sub) }
+  if(p==='changelog') renderCL();
+  if(p==='export') renderExp();
+  if(p==='new'){ curType=''; document.getElementById('form-c').style.display='none'; resetTC() }
+  upCount();
+}
+
+function upCount(){ const e=ge(); document.getElementById('a-count').textContent=e.length+' entrée'+(e.length!==1?'s':'') }
+
+function sel(id,opts,lbl){ return `<div class="fg2"><label>${lbl}</label><select id="${id}">${opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select></div>` }
+function inp(id,lbl,ph='',t='text'){ return `<div class="fg2"><label>${lbl}</label><input type="${t}" id="${id}" placeholder="${ph}"></div>` }
+function ta(id,lbl,ph=''){ return `<div class="fg2 fgrid2 full"><label>${lbl}</label><textarea id="${id}" placeholder="${ph}"></textarea></div>` }
+
+function commonFields(){ return `
+<div class="fgrid2">
+${inp('f_nom','Nom canonique *','Nom exact validé')}
+${inp('f_alias','Alias / variantes','Séparés par des virgules')}
+</div>
+<div class="fgrid2">
+${sel('f_statut_canon',SC,'Statut canonique *')}
+${sel('f_certitude',CE,'Certitude')}
+</div>
+<div class="fgrid2">
+${sel('f_source',SR,'Source dominante')}
+${sel('f_acces',AC,'Accès')}
+</div>
+${ta('f_resume','Résumé court','Résumé en 1-2 phrases jouables')}
+`}
+
+function buildForm(t){
+  const c=commonFields();
+  let s='';
+  if(t==='pays') s=`<div class="fsec"><p class="fsec-t">Localisation</p>
+<div class="fgrid2">${sel('f_continent',CO,'Continent')}${inp('f_capitale','Capitale','')}</div>
+<div class="fgrid2">${inp('f_maison','Maison dominante','')}${inp('f_devise','Devise','"..."')}</div>
+${inp('f_blason','Blason textuel','')}
+</div>
+<div class="fsec"><p class="fsec-t">Lore</p>
+${ta('f_fonction','Fonction & rôle stratégique','')}
+${ta('f_geo','Géographie & territoire','')}
+${ta('f_societe','Société & culture','')}
+${ta('f_fracture','Fracture maîtresse','')}
+${ta('f_hooks','Hooks RP (3-5)','')}
+</div>`;
+  else if(t==='maison') s=`<div class="fsec"><p class="fsec-t">Identité héraldique</p>
+<div class="fgrid2">${inp('f_territoire','Territoire','')}${sel('f_continent',CO,'Continent')}</div>
+<div class="fgrid2">${inp('f_blason','Blason textuel','')}${inp('f_devise','Devise canonique','')}</div>
+${inp('f_monopole','Monopole principal','')}
+</div>
+<div class="fsec"><p class="fsec-t">Structure</p>
+${inp('f_seigneur','Seigneur / Seigneure','')}
+${ta('f_structure','Conseil, offices, chevaliers, vassaux','')}
+${ta('f_militaire','Appareil militaire','')}
+${ta('f_depandances','Dépendances & rivalités','')}
+${ta('f_fracture','Fracture maîtresse','')}
+${ta('f_hooks','Hooks RP','')}
+</div>`;
+  else if(t==='personnage') s=`<div class="fsec"><p class="fsec-t">Identité</p>
+<div class="fgrid2">${inp('f_titre','Titre officiel','')}${inp('f_titre_op','Titre opérationnel','')}</div>
+<div class="fgrid2">${inp('f_naissance','Année de naissance','ex: 2459')}${inp('f_affiliation','Affiliation','' )}</div>
+${inp('f_rang','Rang / Grade','')}
+</div>
+<div class="fsec"><p class="fsec-t">Description</p>
+${ta('f_physique','Description physique','')}
+${ta('f_moral','Description morale','')}
+${ta('f_competences','Compétences','')}
+</div>
+<div class="fsec"><p class="fsec-t">RP & Accès</p>
+${ta('f_joueur_sait','Ce qu\'un joueur peut savoir','')}
+${ta('f_staff_only','Éléments réservés staff [PRIVÉ]','')}
+${ta('f_relations','Relations','')}
+</div>`;
+  else if(t==='fiche_pj') s=`<div class="fsec"><p class="fsec-t">Identité joueur</p>
+<div class="fgrid2">${inp('f_joueur','Pseudo du joueur','')}${inp('f_age','Âge du personnage','')}</div>
+<div class="fgrid2">${inp('f_archetype','Archétype','')}${inp('f_affiliation','Affiliation','')}</div>
+${inp('f_oeil','Statut Œil de Dieu','Actif / Piraté / Silencié / Extrait')}
+</div>
+<div class="fsec"><p class="fsec-t">Fiche</p>
+${ta('f_physique','Description physique','')}
+${ta('f_moral','Description morale','')}
+${ta('f_histoire','Histoire','')}
+${ta('f_competences','Compétences & limites','')}
+${ta('f_capacites','Capacités spéciales (si Pestiféré : degré, coût)','')}
+${ta('f_objectif','Objectif personnel','')}
+</div>
+<div class="fsec"><p class="fsec-t">Notes staff</p>
+${ta('f_staff_only','Notes staff [PRIVÉ]','')}
+</div>`;
+  else if(t==='session') s=`<div class="fsec"><p class="fsec-t">Infos session</p>
+<div class="fgrid2">${inp('f_date_rp','Date in-universe','ex: 2497, printemps')}${inp('f_date_irl','Date réelle','')}</div>
+${inp('f_arc','Arc narratif associé','')}
+${ta('f_resume_session','Résumé de la session','')}
+${ta('f_consequences','Conséquences canoniques','')}
+${ta('f_pages_impactees','Pages impactées','')}
+${ta('f_staff_only','Notes staff [PRIVÉ]','')}
+</div>`;
+  else if(t==='arc') s=`<div class="fsec"><p class="fsec-t">Arc narratif</p>
+<div class="fgrid2">${inp('f_saison','Saison','ex: Saison 1')}${sel('f_etat',['En cours','Terminé','Suspendu','En préparation'],'État')}</div>
+${inp('f_territoire','Territoires concernés','')}
+${ta('f_enjeux','Enjeux principaux','')}
+${ta('f_participants','PJ et PNJ impliqués','')}
+${ta('f_staff_only','Notes staff [PRIVÉ]','')}
+</div>`;
+  else if(t==='evenement') s=`<div class="fsec"><p class="fsec-t">Événement</p>
+<div class="fgrid2">${inp('f_date_rp','Date in-universe','')}${sel('f_type_ev',['Canon verrouillé','Canon jouable','RP en cours','Rumeur'],'Type de vérité')}</div>
+${ta('f_description','Description','')}
+${ta('f_consequences','Conséquences','')}
+${ta('f_liens','Pages liées','')}
+</div>`;
+  else if(t==='technologie') s=`<div class="fsec"><p class="fsec-t">Technologie</p>
+<div class="fgrid2">${inp('f_categorie','Catégorie','Implant, Arme, Drogue, Système…')}${inp('f_producteur','Producteur principal','')}</div>
+${ta('f_description','Description & fonctionnement','')}
+${ta('f_effets','Effets & coûts','')}
+${ta('f_statut_legal','Statut légal & doctrine','')}
+</div>`;
+  else if(t==='lieu') s=`<div class="fsec"><p class="fsec-t">Lieu</p>
+<div class="fgrid2">${inp('f_pays','Pays','')}${inp('f_type_lieu','Type','Ville, bâtiment, zone…')}</div>
+${ta('f_description','Description','')}
+${ta('f_importance','Importance stratégique ou narrative','')}
+</div>`;
+  else if(t==='doctrine') s=`<div class="fsec"><p class="fsec-t">Doctrine / Rite</p>
+${inp('f_categorie','Catégorie','Rite, Dogme, Pratique, Texte…')}
+${ta('f_description','Description','')}
+${ta('f_pratique','Comment se pratique-t-il concrètement','')}
+${ta('f_ecarts','Variantes ou déviances connues','')}
+</div>`;
+  else if(t==='institution') s=`<div class="fsec"><p class="fsec-t">Institution</p>
+<div class="fgrid2">${inp('f_type_inst','Type','Militaire, Judiciaire…')}${inp('f_superieur','Autorité supérieure','')}</div>
+${ta('f_description','Rôle & fonctions','')}
+${ta('f_grades','Structure hiérarchique / grades','')}
+${ta('f_relations','Relations avec d\'autres institutions','')}
+</div>`;
+  else if(t==='glossaire') s=`<div class="fsec"><p class="fsec-t">Terme</p>
+${ta('f_definition','Définition canonique','')}
+${ta('f_contexte','Contexte d\'usage','')}
+</div>`;
+  return `<div class="fgrid2">${c}</div>${s}`;
+}
+
+function selectType(t){
+  curType=t;
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));
+  document.querySelector(`[data-t="${t}"]`).classList.add('sel');
+  document.getElementById('form-title').textContent=TL[t]||t;
+  document.getElementById('form-body').innerHTML=buildForm(t);
+  document.getElementById('form-c').style.display='block';
+  document.getElementById('save-status').textContent='';
+}
+
+function resetTC(){ document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel')) }
+
+function gv(id){ const e=document.getElementById(id); return e?e.value.trim():'' }
+
+function collectForm(t){
+  const base={id:Date.now().toString(36)+Math.random().toString(36).slice(2),type:t,nom:gv('f_nom'),alias:gv('f_alias'),statut_canon:gv('f_statut_canon'),certitude:gv('f_certitude'),source:gv('f_source'),acces:gv('f_acces'),resume:gv('f_resume'),created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
+  ['continent','capitale','maison','devise','blason','fonction','geo','societe','fracture','hooks','territoire','monopole','seigneur','structure','militaire','depandances','titre','titre_op','naissance','affiliation','rang','physique','moral','competences','joueur_sait','staff_only','relations','joueur','age','archetype','oeil','histoire','capacites','objectif','date_rp','date_irl','arc','resume_session','consequences','pages_impactees','saison','etat','enjeux','participants','type_ev','description','liens','categorie','producteur','effets','statut_legal','pays','type_lieu','importance','pratique','ecarts','type_inst','superieur','grades','definition','contexte'].forEach(k=>{ const v=gv('f_'+k); if(v) base[k]=v });
+  return base;
+}
+
+function saveEntry(status){
+  if(!curType) return;
+  const nom=gv('f_nom'); if(!nom){toast('[ ERREUR ] Nom canonique requis');return}
+  const e=collectForm(curType); e.statut_publication=status;
+  const arr=ge(); arr.push(e); se(arr);
+  ac(TL[curType],status==='publie'?'Publication':'Brouillon',nom);
+  document.getElementById('save-status').textContent='[ SAUVEGARDÉ — '+new Date().toLocaleTimeString('fr')+' ]';
+  toast(status==='publie'?'Entrée publiée ✓':'Brouillon sauvegardé ✓');
+  upCount();
+}
+
+function renderDash(){
+  const entries=ge();
+  const types={};
+  entries.forEach(e=>{ types[e.type]=(types[e.type]||0)+1 });
+  const pub=entries.filter(e=>e.statut_publication==='publie').length;
+  const dr=entries.filter(e=>e.statut_publication==='brouillon').length;
+  const lk=entries.filter(e=>e.statut_canon==='Canon verrouillé').length;
+  document.getElementById('dash-stats').innerHTML=`
+<div class="sbox"><span class="sv2">${entries.length}</span><span class="sl2">Total</span></div>
+<div class="sbox"><span class="sv2">${pub}</span><span class="sl2">Publiées</span></div>
+<div class="sbox"><span class="sv2">${dr}</span><span class="sl2">Brouillons</span></div>
+<div class="sbox"><span class="sv2">${lk}</span><span class="sl2">Verrouillé</span></div>
+<div class="sbox"><span class="sv2">${types['pays']||0}</span><span class="sl2">Pays</span></div>
+<div class="sbox"><span class="sv2">${types['maison']||0}</span><span class="sl2">Maisons</span></div>
+<div class="sbox"><span class="sv2">${types['personnage']||0}</span><span class="sl2">Personnages</span></div>
+<div class="sbox"><span class="sv2">${types['fiche_pj']||0}</span><span class="sl2">Fiches PJ</span></div>`;
+
+  const recent=entries.filter(e=>e.statut_publication==='publie').slice(-6).reverse();
+  document.getElementById('recent-l').innerHTML=recent.length?recent.map(e=>`<div class="ri2">
+<div class="ri2-l"><h4>${e.nom}</h4><p>${TL[e.type]||e.type} — ${(e.resume||'').slice(0,50)}${(e.resume||'').length>50?'…':''}</p></div>
+<div class="ri2-r"><span class="badge2 bj" style="font-size:.48rem">${(e.statut_canon||'').slice(0,10)}</span><button class="btn2 bd2c bsm" onclick="openEdit('${e.id}')">Éditer</button></div>
+</div>`).join(''):'<div class="empty2"><div class="ei">◈</div><p>Aucune entrée publiée</p></div>';
+
+  const drafts=entries.filter(e=>e.statut_publication==='brouillon').slice(-5).reverse();
+  document.getElementById('drafts-l').innerHTML=drafts.length?drafts.map(e=>`<div class="ri2">
+<div class="ri2-l"><h4>${e.nom}</h4><p>${TL[e.type]||e.type}</p></div>
+<div class="ri2-r"><span class="badge2 bb" style="font-size:.48rem">Brouillon</span><button class="btn2 bg2c bsm" onclick="openEdit('${e.id}')">Publier</button></div>
+</div>`).join(''):'<div class="empty2"><div class="ei">✦</div><p>Aucun brouillon</p></div>';
+}
+
+function renderList(t){
+  document.getElementById('list-eye').textContent=TL[t]||t;
+  document.getElementById('list-title').textContent='Liste — '+(TL[t]||t);
+  document.getElementById('list-search').value='';
+  document.getElementById('list-sf').value='';
+  renderListTable(t,'','');
+}
+
+function filterList(){ renderListTable(curListType,document.getElementById('list-search').value.toLowerCase(),document.getElementById('list-sf').value) }
+
+function renderListTable(t,q,sf){
+  const entries=ge().filter(e=>{ if(e.type!==t)return false; if(q&&!JSON.stringify(e).toLowerCase().includes(q))return false; if(sf&&e.statut_publication!==sf)return false; return true });
+  const w=document.getElementById('list-tw');
+  if(!entries.length){ w.innerHTML=`<div class="empty2" style="padding:2.5rem;border:1px solid var(--b0)"><div class="ei">◈</div><p>Aucune entrée de type ${TL[t]||t}</p></div>`; return }
+  const cb={publie:'<span class="badge2 bv">Publié</span>',brouillon:'<span class="badge2 bb">Brouillon</span>',archive:'<span class="badge2 bo">Archivé</span>'};
+  const cm={'Canon verrouillé':'bv','Canon jouable':'bj','Canon révisable':'bc2c','RP en cours':'bb','Non canon':'bo','Staff only':'bs'};
+  w.innerHTML=`<table class="tbl"><thead><tr><th>Nom</th><th>Statut canon</th><th>Publication</th><th>Certitude</th><th>Actions</th></tr></thead><tbody>
+${entries.map(e=>`<tr><td>${e.nom||'—'}</td><td><span class="badge2 ${cm[e.statut_canon]||'bb'}">${(e.statut_canon||'—').slice(0,14)}</span></td><td>${cb[e.statut_publication]||'<span class="badge2 bb">—</span>'}</td><td style="font-size:.72rem;color:var(--t2)">${(e.certitude||'').slice(0,18)||'—'}</td><td><div class="acts"><button class="btn2 bg2c bsm" onclick="openEdit('${e.id}')">Éditer</button><button class="btn2 br2c bsm" onclick="if(confirm('Supprimer ?'))delEntry('${e.id}')">✕</button></div></td></tr>`).join('')}
+</tbody></table>`;
+}
+
+function delEntry(id){
+  const arr=ge(); const e=arr.find(x=>x.id===id);
+  const f=arr.filter(x=>x.id!==id); se(f);
+  if(e) ac(TL[e.type]||e.type,'Suppression',e.nom);
+  closeMod(); renderListTable(curListType,'',''); renderDash(); upCount(); toast('Entrée supprimée');
+}
+
+function updateEntry(id,status){
+  const arr=ge(); const i=arr.findIndex(e=>e.id===id); if(i<0)return;
+  document.querySelectorAll('#mbody2 [id^="f_"]').forEach(el=>{ const k=el.id.replace('f_',''); arr[i][k]=el.value });
+  arr[i].statut_publication=status; arr[i].updated_at=new Date().toISOString(); se(arr);
+  ac(TL[arr[i].type]||arr[i].type,status==='publie'?'Mise à jour publiée':'Brouillon mis à jour',arr[i].nom);
+  closeMod(); renderListTable(curListType,'',''); renderDash(); toast('Mise à jour ✓');
+}
+
+function openEdit(id){
+  curEditId=id; const arr=ge(); const e=arr.find(x=>x.id===id); if(!e)return;
+  document.getElementById('modal-t').textContent='Éditer — '+e.nom;
+  document.getElementById('mbody2').innerHTML=buildForm(e.type);
+  Object.keys(e).forEach(k=>{ const el=document.getElementById('f_'+k); if(el) el.value=e[k]||'' });
+  document.getElementById('moverlay2').classList.add('on');
+}
+
+function closeMod(){ document.getElementById('moverlay2').classList.remove('on'); curEditId=null }
+
+function renderCL(){
+  const log=gc();
+  const b=document.getElementById('cl-body');
+  if(!log.length){ b.innerHTML='<div class="empty2" style="padding:2rem;text-align:center"><div class="ei">◇</div><p>Aucune modification</p></div>'; return }
+  const ac={'Publication':'var(--green2)','Mise à jour publiée':'var(--cold2)','Brouillon':'var(--t1)','Brouillon mis à jour':'var(--t1)','Suppression':'var(--red2)'};
+  b.innerHTML=`<div class="cl">${log.map(l=>`<div class="ci"><span class="ci-t">${l.time}</span><span class="ci-a" style="color:${ac[l.action]||'var(--t1)'}">${l.action}</span><span class="ci-d"><strong style="color:var(--t0)">${l.title}</strong> — <span style="color:var(--t2)">${l.type}</span></span></div>`).join('')}</div>`;
+}
+
+function renderExp(){
+  const entries=ge().filter(e=>e.statut_publication==='publie');
+  const el=document.getElementById('exp-list');
+  if(!entries.length){ el.innerHTML='<div class="empty2" style="padding:2rem;border:1px solid var(--b0);text-align:center"><div class="ei">◈</div><p>Aucune entrée publiée</p></div>'; return }
+  el.innerHTML=`<table class="tbl"><thead><tr><th>Nom</th><th>Type</th><th>Canon</th><th>Export</th></tr></thead><tbody>
+${entries.map(e=>`<tr><td>${e.nom}</td><td>${TL[e.type]||e.type}</td><td><span class="badge2 bj" style="font-size:.5rem">${(e.statut_canon||'').slice(0,12)}</span></td><td><button class="btn2 bc2c bsm" onclick="expSingle('${e.id}')">HTML</button></td></tr>`).join('')}
+</tbody></table>`;
+}
+
+function genHTML(e){
+  const cc={'Canon verrouillé':'var(--green2)','Canon jouable':'var(--gold2)','Canon révisable':'var(--cold2)','RP en cours':'var(--t1)'};
+  const col=cc[e.statut_canon]||'var(--t1)';
+  const lm={continent:'Continent',capitale:'Capitale',maison:'Maison',devise:'Devise',blason:'Blason',monopole:'Monopole',certitude:'Certitude',source:'Source',affiliation:'Affiliation',rang:'Rang',physique:'Physique',moral:'Moral',competences:'Compétences',histoire:'Histoire',oeil:'Œil de Dieu',objectif:'Objectif',fonction:'Fonction',geo:'Géographie',societe:'Société',fracture:'Fracture',hooks:'Hooks RP',relations:'Relations'};
+  let rows='';
+  Object.keys(lm).forEach(k=>{ if(e[k]) rows+=`<tr><td style="font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.5rem .75rem;border-bottom:1px solid #18183a;width:130px">${lm[k]}</td><td style="padding:.5rem .75rem;border-bottom:1px solid #18183a;font-size:.82rem;color:#a89f88">${e[k].replace(/\n/g,'<br>')}</td></tr>` });
+  return `<!-- ${e.nom} — ${new Date().toLocaleString('fr')} -->
+<div style="background:#0a0a22;border:1px solid #18183a;padding:1.5rem;margin:1rem 0;position:relative">
+<div style="position:absolute;top:.75rem;right:.75rem;display:flex;gap:.4rem">
+<span style="font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:.14rem .42rem;border:1px solid currentColor;color:${col}">${e.statut_canon||'—'}</span>
+<span style="font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:.14rem .42rem;border:1px solid #2e2e80;color:#5a9ff4">${e.type}</span>
+</div>
+<p style="font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#5a9ff4;margin-bottom:.4rem">${e.source||''}</p>
+<h3 style="font-family:'Cinzel',serif;font-size:1.05rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#e8b84b;margin-bottom:.5rem">${e.nom}</h3>
+${e.resume?`<p style="font-style:italic;color:#a89f88;font-size:.88rem;margin-bottom:1rem">${e.resume}</p>`:''}
+${rows?`<table style="width:100%;border-collapse:collapse;margin-top:1rem">${rows}</table>`:''}
+</div>`;
+}
+
+function expSingle(id){ const e=ge().find(x=>x.id===id); if(!e)return; dl(`caladan-${e.type}-${e.nom.toLowerCase().replace(/\s+/g,'-')}.html`,genHTML(e)); toast('Export ✓') }
+function expAll(){ const entries=ge().filter(e=>e.statut_publication==='publie'); if(!entries.length){toast('Aucune entrée publiée');return} dl('caladan-export-complet.html',entries.map(genHTML).join('\n\n')); toast('Export complet ✓') }
+function expJSON(){ const d={version:'1.0',exported:new Date().toISOString(),entries:ge(),changelog:gc()}; dl('caladan-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(d,null,2)); toast('Backup ✓') }
+function impJSON(inp){ const f=inp.files[0]; if(!f)return; const r=new FileReader(); r.onload=e=>{ try{ const d=JSON.parse(e.target.result); if(d.entries)se(d.entries); if(d.changelog)localStorage.setItem('caladan_changelog',JSON.stringify(d.changelog)); renderDash(); upCount(); toast('Import ✓ — '+(d.entries?.length||0)+' entrées') }catch{ toast('[ ERREUR ] JSON invalide') }}; r.readAsText(f) }
+function dl(fn,c){ const a=document.createElement('a'); a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(c); a.download=fn; document.body.appendChild(a); a.click(); document.body.removeChild(a) }
+
+document.addEventListener('DOMContentLoaded',()=>{
+  renderDash(); upCount();
+  document.getElementById('moverlay2').addEventListener('click',e=>{ if(e.target===document.getElementById('moverlay2'))closeMod() });
+});
+</script>
+</body>
+</html>

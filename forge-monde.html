@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Forge-Monde — Caladan Wiki</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+
+:root{
+  --bg:#04040c;--bg1:#07071a;--bg2:#0a0a22;--bg3:#0e0e2e;
+  --b0:#18183a;--b1:#22225a;--b2:#2e2e80;
+  --gold:#c4962a;--gold2:#e8b84b;--gold3:#7a5c1a;
+  --cold:#3a7fd4;--cold2:#5a9ff4;--cold3:#1a3a6a;
+  --red:#c44a3a;--red2:#e46a5a;
+  --green:#2a8a4a;--green2:#4aaa6a;
+  --t0:#eee8d4;--t1:#a89f88;--t2:#6a6050;--t3:#3a3028;
+  --scan:rgba(255,255,255,.011);--sw:260px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t0);font-family:'Crimson Text',Georgia,serif;font-size:1.05rem;line-height:1.72;min-height:100vh;display:flex;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scan) 2px,var(--scan) 4px)}
+
+.sidebar{width:var(--sw);min-height:100vh;background:var(--bg1);border-right:1px solid var(--b0);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;z-index:500;display:flex;flex-direction:column;transition:transform .3s ease}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--b1)}
+
+.s-logo{padding:1.25rem 1.25rem .9rem;border-bottom:1px solid var(--b0);flex-shrink:0}
+.s-logo a{font-family:'Cinzel',serif;font-size:1rem;font-weight:900;color:var(--gold2);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;display:block}
+.s-logo p{font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-top:.25rem;opacity:.7}
+
+.s-search{padding:.7rem 1rem;border-bottom:1px solid var(--b0);flex-shrink:0;position:relative}
+.s-search input{width:100%;background:var(--bg2);border:1px solid var(--b0);color:var(--t0);font-family:'Share Tech Mono',monospace;font-size:.7rem;padding:.5rem .7rem .5rem 2rem;outline:none;transition:border-color .2s;letter-spacing:.04em}
+.s-search input:focus{border-color:var(--gold3)}.s-search input::placeholder{color:var(--t2)}
+.s-ico{position:absolute;left:1.65rem;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--t2);pointer-events:none}
+.s-res{display:none;position:absolute;top:calc(100% + 2px);left:0;right:0;background:var(--bg2);border:1px solid var(--b1);z-index:600;max-height:300px;overflow-y:auto}
+.s-res.on{display:block}
+.sr-item{display:block;padding:.6rem .85rem;text-decoration:none;border-bottom:1px solid var(--b0);transition:background .15s}
+.sr-item:hover{background:var(--bg3)}.sr-item:last-child{border-bottom:none}
+.sr-p{font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.18em;color:var(--cold);text-transform:uppercase;margin-bottom:.12rem}
+.sr-t{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--gold2);margin-bottom:.1rem}
+.sr-s{font-size:.73rem;color:var(--t1);line-height:1.4}.sr-s em{color:var(--gold2);font-style:normal}
+.sr-0{padding:1rem;font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--t2);text-align:center;letter-spacing:.1em}
+
+.s-lbl{font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;color:var(--t2);padding:.55rem 1.25rem .2rem;border-top:1px solid var(--b0);margin-top:.2rem}
+.s-link{display:flex;align-items:center;gap:.6rem;padding:.42rem 1.25rem;font-family:'Cinzel',serif;font-size:.7rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t1);text-decoration:none;transition:all .15s;border-left:2px solid transparent}
+.s-link:hover{color:var(--t0);background:rgba(255,255,255,.03)}
+.s-link.active{color:var(--gold2);border-left-color:var(--gold);background:rgba(196,150,42,.06)}
+.s-link .dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.4;flex-shrink:0}
+.s-link.active .dot{opacity:1;background:var(--gold)}
+.s-sub{padding-left:.5rem}
+.s-sub .s-link{font-size:.65rem;padding:.35rem 1.25rem .35rem 2rem;color:var(--t2)}
+.s-sub .s-link:hover{color:var(--t1)}
+.s-sub .s-link.active{color:var(--cold2);border-left-color:var(--cold);background:rgba(58,127,212,.06)}
+.s-sub .s-link.active .dot{background:var(--cold)}
+
+.s-foot{margin-top:auto;padding:.9rem 1.25rem;border-top:1px solid var(--b0);flex-shrink:0}
+.s-foot p{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--t2);text-transform:uppercase}
+
+.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{height:50px;background:rgba(4,4,12,.97);border-bottom:1px solid var(--b0);position:sticky;top:0;z-index:400;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;backdrop-filter:blur(12px);flex-shrink:0}
+.bcrumb{display:flex;align-items:center;gap:.5rem;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+.bcrumb a{color:var(--t1);text-decoration:none;transition:color .15s}.bcrumb a:hover{color:var(--gold2)}
+.bcrumb-sep{color:var(--b1)}.bcrumb-cur{color:var(--t0)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--t1);font-size:1.1rem;padding:.25rem}
+.content{padding:2.5rem 2.5rem 4rem;max-width:1100px;width:100%;flex:1}
+footer{padding:1.4rem 2.5rem;border-top:1px solid var(--b0);font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:.2em;color:var(--t2);text-transform:uppercase;flex-shrink:0}
+
+/* PAGE HEADER */
+.ph{margin-bottom:2.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--b0);position:relative;animation:fadeUp .5s ease both}
+.ph::after{content:'';position:absolute;bottom:-1px;left:0;height:1px;width:160px;background:linear-gradient(90deg,var(--gold),transparent)}
+.ph-eye{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--cold2);margin-bottom:.6rem;opacity:.8}
+.ph-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;margin-bottom:.7rem}
+.ph-title em{color:var(--gold2);font-style:normal}
+.ph-lead{font-size:1.08rem;font-style:italic;color:var(--t1);max-width:700px;line-height:1.7}
+
+/* SECTION HEADERS */
+.sh{margin:2.25rem 0 1.1rem;padding-bottom:.55rem;border-bottom:1px solid var(--b0);position:relative}
+.sh::after{content:'';position:absolute;bottom:-1px;left:0;width:50px;height:1px;background:var(--gold)}
+.sh-eye{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cold);margin-bottom:.28rem;opacity:.75}
+.sh-title{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t0)}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--b0);padding:1.4rem;position:relative;transition:all .2s}
+.card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--gold3);transition:background .2s}
+.card:hover{border-color:var(--b1);background:var(--bg3);transform:translateY(-2px)}
+.card:hover::before{background:var(--gold)}
+.card-meta{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.2em;color:var(--cold);text-transform:uppercase;margin-bottom:.38rem;opacity:.8}
+.card-title{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold2);margin-bottom:.5rem}
+.card p{color:var(--t1);font-size:.88rem;line-height:1.6}
+
+/* BADGES */
+.badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:.17rem .48rem;border:1px solid currentColor}
+.bg{color:var(--gold);border-color:var(--gold3);background:rgba(196,150,42,.07)}
+.bc2{color:var(--cold2);border-color:var(--cold3);background:rgba(58,127,212,.07)}
+.br{color:var(--red2);border-color:var(--red);background:rgba(196,74,58,.07)}
+.bd{color:var(--t2);border-color:var(--t2);background:transparent}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem}
+
+/* TABLE */
+.dt{width:100%;border-collapse:collapse;font-size:.85rem;margin:1.2rem 0}
+.dt th{font-family:'Cinzel',serif;font-size:.58rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);padding:.6rem .85rem;text-align:left;border-bottom:1px solid var(--b1);background:rgba(196,150,42,.04)}
+.dt td{padding:.6rem .85rem;border-bottom:1px solid var(--b0);color:var(--t1);font-size:.82rem;vertical-align:top}
+.dt td:first-child{color:var(--t0);font-weight:600}
+.dt td em{color:var(--gold3);font-style:italic}
+.dt tr:hover td{background:rgba(196,150,42,.02)}
+
+/* ACCORDION */
+.acc{border:1px solid var(--b0);margin-bottom:.4rem}
+.acc-t{width:100%;padding:.82rem 1.2rem;background:var(--bg2);border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t0);transition:all .2s;text-align:left}
+.acc-t:hover{background:var(--bg3);color:var(--gold2)}
+.acc-t.open{color:var(--gold2);border-bottom:1px solid var(--b0)}
+.acc-icon{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--gold3);transition:transform .2s}
+.acc-t.open .acc-icon{transform:rotate(45deg)}
+.acc-b{display:none;padding:1.2rem;background:var(--bg1);font-size:.9rem;color:var(--t1);line-height:1.7}
+.acc-b.open{display:block}
+
+/* ALERT */
+.alert{padding:.85rem 1.2rem;border:1px solid var(--b0);display:flex;gap:.85rem;align-items:flex-start;margin:1.2rem 0}
+.alert-icon{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--gold);white-space:nowrap;padding-top:.1rem}
+.alert-body{font-size:.88rem;color:var(--t1)}
+
+/* LORE QUOTE */
+.lore{background:var(--bg1);border-left:2px solid var(--gold);padding:1.2rem 1.5rem 1.2rem 2rem;margin:1.6rem 0;font-style:italic;color:var(--t1);font-size:1rem;line-height:1.75;position:relative}
+.lore::before{content:'"';position:absolute;top:-.4rem;left:1.2rem;font-family:'Cinzel',serif;font-size:3rem;color:var(--gold3);line-height:1;pointer-events:none}
+
+/* PROSE */
+.prose{max-width:740px}
+.prose h2{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);margin:2rem 0 .75rem;padding-bottom:.4rem;border-bottom:1px solid var(--b0)}
+.prose h3{font-family:'Cinzel',serif;font-size:.9rem;font-weight:600;color:var(--t0);margin:1.5rem 0 .6rem}
+.prose p{margin-bottom:1rem;color:var(--t1)}
+.prose p strong{color:var(--t0);font-weight:600}
+
+/* GRADE GRID */
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--b0);border:1px solid var(--b0);margin:1.2rem 0}
+.gi{background:var(--bg2);padding:.82rem 1rem;display:grid;grid-template-columns:auto 1fr;gap:.82rem;align-items:start}
+.gr{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--gold3);letter-spacing:.1em;white-space:nowrap;padding-top:.08rem}
+.gn{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t0);margin-bottom:.2rem}
+.gd{font-size:.76rem;color:var(--t1);line-height:1.5}
+
+/* COUNTRY CARD */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.9rem}
+.cc{background:var(--bg2);border:1px solid var(--b0);padding:1.1rem 1.25rem;transition:all .2s;border-top:2px solid var(--b0)}
+.cc:hover{border-color:var(--b1);background:var(--bg3)}
+.cc.sep{border-top-color:var(--gold3)}.cc:hover.sep{border-top-color:var(--gold)}
+.cc.forge{border-top-color:var(--red)}.cc:hover.forge{border-top-color:var(--red2)}
+.cc.march{border-top-color:var(--cold3)}.cc:hover.march{border-top-color:var(--cold2)}
+.cc-cap{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.18em;color:var(--cold);text-transform:uppercase;margin-bottom:.28rem}
+.cc-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t0);margin-bottom:.2rem}
+.cc-house{font-size:.78rem;color:var(--gold);font-weight:600;margin-bottom:.1rem}
+.cc-devise{font-size:.73rem;color:var(--gold3);font-style:italic;margin-bottom:.42rem}
+.cc-role{font-size:.78rem;color:var(--t1);font-style:italic}
+.cc-frac{margin-top:.58rem;padding-top:.58rem;border-top:1px solid var(--b0);font-size:.73rem;color:var(--t2);line-height:1.5}
+
+/* PAGE NAV */
+.pnav{display:flex;justify-content:space-between;gap:1rem;margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--b0);flex-wrap:wrap}
+.pnl{display:flex;flex-direction:column;gap:.2rem;text-decoration:none;padding:.82rem 1.2rem;background:var(--bg2);border:1px solid var(--b0);transition:all .2s;max-width:260px;flex:1}
+.pnl:hover{border-color:var(--b1);background:var(--bg3)}
+.pnl-dir{font-family:'Share Tech Mono',monospace;font-size:.53rem;letter-spacing:.2em;text-transform:uppercase;color:var(--t2)}
+.pnl-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold2)}
+.pnl-desc{font-size:.75rem;color:var(--t1);line-height:1.4}
+.pnl.prev .pnl-dir::before{content:'← '}
+.pnl.next{text-align:right;margin-left:auto}
+.pnl.next .pnl-dir::after{content:' →'}
+
+/* STATS BAR */
+.sbar{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:1px;background:var(--b0);border:1px solid var(--b0);margin:1.8rem 0}
+.si{background:var(--bg2);padding:1.05rem;text-align:center}
+.sv{font-family:'Cinzel',serif;font-size:1.65rem;font-weight:900;color:var(--gold2);display:block;line-height:1;margin-bottom:.32rem}
+.sl{font-family:'Share Tech Mono',monospace;font-size:.53rem;letter-spacing:.18em;color:var(--t2);text-transform:uppercase}
+
+/* PORTAL */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem}
+.pcard{background:var(--bg2);border:1px solid var(--b0);padding:1.6rem;text-decoration:none;display:block;position:relative;transition:all .22s;overflow:hidden}
+.pcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold3),var(--gold2),var(--gold3));transform:scaleX(0);transition:transform .28s}
+.pcard:hover{border-color:var(--b1);background:var(--bg3);transform:translateY(-3px)}
+.pcard:hover::after{transform:scaleX(1)}
+.pc-num{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.28em;color:var(--cold3);text-transform:uppercase;margin-bottom:.75rem}
+.pc-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);margin-bottom:.55rem}
+.pc-desc{font-size:.87rem;color:var(--t1);line-height:1.6}
+.pc-arrow{position:absolute;bottom:1.1rem;right:1.1rem;font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--gold3);transition:all .2s}
+.pcard:hover .pc-arrow{color:var(--gold2);transform:translateX(4px)}
+
+/* UTILS */
+.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}.mb3{margin-bottom:1.5rem}.mb4{margin-bottom:2rem}.mb5{margin-bottom:3rem}
+.mt3{margin-top:1.5rem}.mt4{margin-top:2rem}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:490}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.f1{animation:fadeUp .5s .08s ease both}.f2{animation:fadeUp .5s .18s ease both}.f3{animation:fadeUp .5s .28s ease both}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .nav-overlay.open{display:block}.main{margin-left:0}.hamburger{display:block}
+  .content{padding:1.5rem 1.25rem 3rem}
+  .g2,.g3,.pgrid,.cgrid{grid-template-columns:1fr}
+  .pnav{flex-direction:column}.pnl.next{margin-left:0;text-align:left}
+}
+@media(max-width:600px){.sbar{grid-template-columns:repeat(3,1fr)}}
+</style></head>
+<body>
+<aside class="sidebar"><div class="s-logo"><a href="index.html">Caladan</a><p>Wiki — 2497 — Ère de la Rédemption</p></div>
+<div class="s-search"><span class="s-ico">⌕</span><input type="text" placeholder="Rechercher…"><div class="s-res"></div></div>
+<nav>
+<p class="s-lbl">Principal</p>
+<a href="index.html" class="s-link"><span class="dot"></span>Accueil</a>
+<a href="vornacht.html" class="s-link"><span class="dot"></span>Le Vornacht</a>
+<p class="s-lbl">Géographie</p>
+<a href="monde.html" class="s-link"><span class="dot"></span>Le Monde</a>
+<div class="s-sub">
+<a href="septuaire.html" class="s-link"><span class="dot"></span>Le Septuaire</a>
+<a href="forge-monde.html" class="s-link"><span class="dot"></span>La Forge-Monde</a>
+<a href="marches.html" class="s-link"><span class="dot"></span>Marches de Brume</a>
+</div>
+<p class="s-lbl">Civilisation</p>
+<a href="vie-quotidienne.html" class="s-link"><span class="dot"></span>Vie Quotidienne</a>
+<a href="deplacement.html" class="s-link"><span class="dot"></span>Déplacements</a>
+<a href="armes.html" class="s-link"><span class="dot"></span>Armement</a>
+<a href="vestimentaire.html" class="s-link"><span class="dot"></span>Style Vestimentaire</a>
+<p class="s-lbl">RP</p>
+<a href="factions.html" class="s-link"><span class="dot"></span>Factions</a>
+<a href="fiches.html" class="s-link"><span class="dot"></span>Fiches Joueurs</a>
+<a href="regles.html" class="s-link"><span class="dot"></span>Règles RP</a>
+<p class="s-lbl">Administration</p>
+<a href="admin.html" class="s-link"><span class="dot"></span>Back Office</a>
+</nav>
+<div class="s-foot"><p>Caladan — RP 18+ — Canon 2497</p></div></aside>
+<div class="nav-overlay"></div>
+<div class="main">
+<div class="topbar"><div class="bcrumb"><a href="index.html">Accueil</a> <span class="bcrumb-sep">›</span> <a href="monde.html">Le Monde</a> <span class="bcrumb-sep">›</span> <span class="bcrumb-cur">La Forge-Monde</span></div><button class="hamburger">☰</button></div>
+<div class="content">
+<div class="ph f1" style="border-left:3px solid var(--red);padding-left:1.25rem">
+<p class="ph-eye" style="color:var(--red2)">Continent II — Pôle Industriel</p>
+<h1 class="ph-title" style="color:var(--red2)">La <em>Forge-Monde</em></h1>
+<p class="ph-lead">La Forge-Monde fabrique la matière même de l'ordre : l'acier, l'énergie, les drogues militaires, les transports lourds, les interfaces civiques et les systèmes d'armement sans lesquels le Vornacht ne pourrait ni gouverner ni réprimer.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--b0);border:1px solid var(--b0);margin:1.5rem 0 2.5rem">
+<div style="background:var(--bg2);padding:.95rem 1.1rem"><p style="font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.38rem;color:var(--red2)">Puissance</p><p style="font-size:.78rem;color:var(--t1);line-height:1.5">Chaque pays tient une pièce irremplaçable du mécanisme général. La valeur sociale vient de la compétence et de l'utilité.</p></div>
+<div style="background:var(--bg2);padding:.95rem 1.1rem"><p style="font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.38rem;color:var(--red2)">Urbanisme</p><p style="font-size:.78rem;color:var(--t1);line-height:1.5">Capitales-forteresses, bassins industriels, ports orbitaux, ceintures ouvrières et profondeurs toxiques.</p></div>
+<div style="background:var(--bg2);padding:.95rem 1.1rem"><p style="font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.38rem;color:var(--red2)">Tension doctrinale</p><p style="font-size:.78rem;color:var(--t1);line-height:1.5">Plus une technologie devient décisive, plus elle frôle la limite entre science sanctifiée et transgression.</p></div>
+<div style="background:var(--bg2);padding:.95rem 1.1rem"><p style="font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.38rem;color:var(--red2)">Violence intégrée</p><p style="font-size:.78rem;color:var(--t1);line-height:1.5">Forces privées de Maison, milices de corridor, Main Droite visible, Main Gauche chirurgicale. La guerre est pré-encodée dans les stocks.</p></div>
+</div>
+<div class="sh mb3"><p class="sh-eye">Tableau</p><h2 class="sh-title">Les Douze Pays</h2></div>
+<table class="dt mb4">
+<thead><tr><th>Pays</th><th>Capitale</th><th>Maison</th><th>Devise</th><th>Fonction</th></tr></thead>
+<tbody>
+<tr><td>Drakarth</td><td>Ferrum Dei</td><td>Maison Zorhel ★</td><td><em>Forger, extraire, dominer</em></td><td>extraction abyssale, Sacrement Noir, armement, génétique industrielle</td></tr><tr><td>Velkara Prime</td><td>Valkrun</td><td>Maison Kareth</td><td><em>Préparer le siège, gagner la guerre</em></td><td>armes à énergie, blindés, drones de siège</td></tr><tr><td>Gryphion</td><td>Pyron</td><td>Maison Drovik</td><td><em>Qui tient la ligne tient le monde</em></td><td>propulsion gravifique, trains hyperloop inter-mines</td></tr><tr><td>Kethia</td><td>Keth-Naur</td><td>Maison Elsyn</td><td><em>Donner une place, obtenir l'obéissance</em></td><td>ouvriers augmentés, centres de montage urbain</td></tr><tr><td>Ironreach</td><td>Pontem</td><td>Maison Mullan</td><td><em>Rien ne passe sans nous</em></td><td>ports orbitaux, transports lourds, rente de transit</td></tr><tr><td>Nocthar</td><td>Umbra</td><td>Maison Korv</td><td><em>Voir la faille avant l'ennemi</em></td><td>cyber-sécurité industrielle, red teaming</td></tr><tr><td>Ferronell</td><td>Harrow</td><td>Maison Thyra</td><td><em>Donner une peau au progrès</em></td><td>matériaux auto-réparants, composites nanotissés</td></tr><tr><td>Borex</td><td>Glacerus</td><td>Maison Velun</td><td><em>Le froid commande la durée</em></td><td>mini-réacteurs fusion, refroidissement orbital</td></tr><tr><td>Maridian</td><td>Seareach</td><td>Maison Saltren</td><td><em>Nourrir la mer, nourrir le monde</em></td><td>aquaculture synthétique, ressources marines recomposées</td></tr><tr><td>Vulcar</td><td>Furnax</td><td>Maison Ignis</td><td><em>La frappe tranche le doute</em></td><td>armes thermiques, capsules d'attaque atmosphérique</td></tr><tr><td>Ornexus</td><td>Nexis</td><td>Maison Sylth</td><td><em>Connecter pour gouverner</em></td><td>interfaces neuronales, implants civiques du Vornacht</td></tr><tr><td>Terranox</td><td>Groundfall</td><td>Maison Morlen</td><td><em>Rien ne se perd sans maître</em></td><td>robots supervisés, nanofolding, déchets toxiques</td></tr>
+</tbody>
+</table>
+<div class="sh mb3"><p class="sh-eye">Fiches pays</p><h2 class="sh-title">Les Douze Pays</h2></div>
+<div class="cgrid mb5"><div class="cc forge"><p class="cc-cap">Capitale : Ferrum Dei</p><h3 class="cc-name">Drakarth</h3><p class="cc-house">Maison Zorhel ★</p><p class="cc-devise">« Forger, extraire, dominer »</p><p class="cc-role">extraction abyssale, Sacrement Noir, armement, génétique industrielle</p><p class="cc-frac">Addiction structurelle au Sacrement Noir dans les rangs militaires, tension sur la succession Zorhel.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Valkrun</p><h3 class="cc-name">Velkara Prime</h3><p class="cc-house">Maison Kareth</p><p class="cc-devise">« Préparer le siège, gagner la guerre »</p><p class="cc-role">armes à énergie, blindés, drones de siège</p><p class="cc-frac">Débat entre partisans du blindé lourd et défenseurs de la guerre de précision rapide.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Pyron</p><h3 class="cc-name">Gryphion</h3><p class="cc-house">Maison Drovik</p><p class="cc-devise">« Qui tient la ligne tient le monde »</p><p class="cc-role">propulsion gravifique, trains hyperloop inter-mines</p><p class="cc-frac">Les ceintures logistiques réclament droits et statut. Drovik résiste.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Keth-Naur</p><h3 class="cc-name">Kethia</h3><p class="cc-house">Maison Elsyn</p><p class="cc-devise">« Donner une place, obtenir l'obéissance »</p><p class="cc-role">ouvriers augmentés, centres de montage urbain</p><p class="cc-frac">La promesse d'intégration sociale contre la réalité de l'obéissance industrielle.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Pontem</p><h3 class="cc-name">Ironreach</h3><p class="cc-house">Maison Mullan</p><p class="cc-devise">« Rien ne passe sans nous »</p><p class="cc-role">ports orbitaux, transports lourds, rente de transit</p><p class="cc-frac">Les ports secondaires réclament une part plus juste des revenus.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Umbra</p><h3 class="cc-name">Nocthar</h3><p class="cc-house">Maison Korv</p><p class="cc-devise">« Voir la faille avant l'ennemi »</p><p class="cc-role">cyber-sécurité industrielle, red teaming</p><p class="cc-frac">Certains opérateurs développent une conscience politique dangereuse.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Harrow</p><h3 class="cc-name">Ferronell</h3><p class="cc-house">Maison Thyra</p><p class="cc-devise">« Donner une peau au progrès »</p><p class="cc-role">matériaux auto-réparants, composites nanotissés</p><p class="cc-frac">Des ateliers clandestins cherchent à franchir la frontière avec le tissu vivant.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Glacerus</p><h3 class="cc-name">Borex</h3><p class="cc-house">Maison Velun</p><p class="cc-devise">« Le froid commande la durée »</p><p class="cc-role">mini-réacteurs fusion, refroidissement orbital</p><p class="cc-frac">Borex arbitre entre sécurité maximale et demande énergétique croissante.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Seareach</p><h3 class="cc-name">Maridian</h3><p class="cc-house">Maison Saltren</p><p class="cc-devise">« Nourrir la mer, nourrir le monde »</p><p class="cc-role">aquaculture synthétique, ressources marines recomposées</p><p class="cc-frac">La recomposition du vivant marin pousse ses limites doctrinales.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Furnax</p><h3 class="cc-name">Vulcar</h3><p class="cc-house">Maison Ignis</p><p class="cc-devise">« La frappe tranche le doute »</p><p class="cc-role">armes thermiques, capsules d'attaque atmosphérique</p><p class="cc-frac">La doctrine de frappe rapide risque de devenir escalatoire.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Nexis</p><h3 class="cc-name">Ornexus</h3><p class="cc-house">Maison Sylth</p><p class="cc-devise">« Connecter pour gouverner »</p><p class="cc-role">interfaces neuronales, implants civiques du Vornacht</p><p class="cc-frac">Certains ingénieurs veulent pousser les interfaces au-delà du permis.</p></div><div class="cc forge"><p class="cc-cap">Capitale : Groundfall</p><h3 class="cc-name">Terranox</h3><p class="cc-house">Maison Morlen</p><p class="cc-devise">« Rien ne se perd sans maître »</p><p class="cc-role">robots supervisés, nanofolding, déchets toxiques</p><p class="cc-frac">Ses robots supervisés approchent un niveau d'autonomie surveillé de près.</p></div></div>
+<div style="background:var(--bg1);border-left:2px solid var(--red);padding:1.4rem 1.6rem;margin-bottom:3rem">
+<p style="font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red2);margin-bottom:.6rem">Quatre Fractures Continentales</p>
+<p style="font-size:.9rem;color:var(--t1);line-height:1.72;margin-bottom:.65rem"><strong style="color:var(--t0)">Maisons lourdes contre centre doctrinal</strong> — Le centre a besoin de la Forge-Monde mais craint qu'elle ne devienne trop indispensable pour rester gouvernable.</p>
+<p style="font-size:.9rem;color:var(--t1);line-height:1.72;margin-bottom:.65rem"><strong style="color:var(--t0)">Capitales contre ceintures ouvrières</strong> — Les capitales captent la rente. Les ceintures supportent les corps cassés, les toxines et la dette.</p>
+<p style="font-size:.9rem;color:var(--t1);line-height:1.72;margin-bottom:.65rem"><strong style="color:var(--t0)">Innovation sanctifiée contre transgression productive</strong> — Chaque progrès industriel frôle une limite. Le Dicastère des Sciences surveille. Les ingénieurs avancent.</p>
+<p style="font-size:.9rem;color:var(--t1);line-height:1.72"><strong style="color:var(--t0)">Logistique visible contre flux gris</strong> — Les ports et corridors officiels sont doublés de détournements et de reventes clandestines.</p>
+</div>
+<div class="pnav"><a href="septuaire.html" class="pnl prev"><span class="pnl-dir">Page précédente</span><span class="pnl-title">Le Septuaire</span><span class="pnl-desc">Continent I — Sept pays sacrés</span></a><a href="marches.html" class="pnl next"><span class="pnl-dir">Page suivante</span><span class="pnl-title">Marches de Brume</span><span class="pnl-desc">Continent III — Quinze pays périphériques</span></a></div></div>
+<footer>Caladan — Wiki RP 18+ — Écriture collaborative — 2497 — Ère de la Rédemption</footer>
+</div>
+<script>
+const IDX=[
+  {p:'index.html',s:'Accueil',t:'Caladan Wiki',c:'accueil portail wiki 2497'},
+  {p:'vornacht.html',s:'Le Vornacht',t:'La Nuit de la Chute',c:'nuit chute catastrophe effondrement archiviste fondateur'},
+  {p:'vornacht.html',s:'Le Vornacht',t:'Le Codex & Hiérarchie',c:'codex sainteté cardinaux curie dicastères hiérarchie ecclésiastique'},
+  {p:'vornacht.html',s:'Le Vornacht',t:'Les Quatre Rites',c:'éveil ancrage lien passage implant grain rite sacrement'},
+  {p:'vornacht.html',s:'Le Vornacht',t:'L\'Œil de Dieu',c:'œil dieu grain conformité scruteurs surveillance neurale'},
+  {p:'vornacht.html',s:'Le Vornacht',t:'Le Sacrement Noir',c:'sacrement noir drogue consumés militaire addiction'},
+  {p:'vornacht.html',s:'Le Vornacht',t:'L\'Axium Calaveum',c:'axium calaveum enclave souveraine veine grise sept consentements'},
+  {p:'monde.html',s:'Le Monde',t:'Architecture des villes',c:'couronne noyaux ceintures profondeurs architecture urbaine'},
+  {p:'monde.html',s:'Le Monde',t:'Les trois continents',c:'septuaire forge-monde marches brume continents géopolitique'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Hieron Primus',c:'hieron primus aetheryn casa vela archives mémoire validation'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Sanctum Vela',c:'sanctum luminara calidyr implants certification corps pureté'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Novacler',c:'novacler serenost eshmar droit jurisprudence précédent'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Seraphon',c:'seraphon orison merek ascenseurs orbitaux élévation'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Aurelion',c:'aurelion paxus rhyse soin réparation banque grains'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Vestalum',c:'vestalum valoris tervin effacement silence archives'},
+  {p:'septuaire.html',s:'Le Septuaire',t:'Altaris',c:'altaris celestis varn formation élites académies sélection'},
+  {p:'forge-monde.html',s:'La Forge-Monde',t:'Drakarth',c:'drakarth ferrum dei zorhel extraction sacrement armement génétique'},
+  {p:'forge-monde.html',s:'La Forge-Monde',t:'Kethia Keth-Naur',c:'kethia keth-naur elsyn ouvriers augmentés montage'},
+  {p:'forge-monde.html',s:'La Forge-Monde',t:'Velkara Prime',c:'velkara valkrun kareth armes énergie blindés drones'},
+  {p:'forge-monde.html',s:'La Forge-Monde',t:'Gryphion',c:'gryphion pyron drovik hyperloop gravifique corridors'},
+  {p:'forge-monde.html',s:'La Forge-Monde',t:'Ironreach',c:'ironreach pontem mullan ports orbitaux transports'},
+  {p:'forge-monde.html',s:'La Forge-Monde',t:'Autres pays',c:'nocthar borex ferronell ornexus vulcar maridian terranox'},
+  {p:'marches.html',s:'Les Marches',t:'Nemos',c:'nemos saltwright maru archives interdites hacktivisme'},
+  {p:'marches.html',s:'Les Marches',t:'Zerath',c:'zerath hollow thar anonymisation hackers chiffrement'},
+  {p:'marches.html',s:'Les Marches',t:'Prax',c:'prax crossing lorn augmentations corps interdits'},
+  {p:'marches.html',s:'Les Marches',t:'Syrth Yalth Eshun',c:'syrth rax secrets yalth veer mercenaires eshun sorn arbitrage'},
+  {p:'vie-quotidienne.html',s:'Civilisation',t:'Structure des villes',c:'couronne noyaux ceintures profondeurs vie quotidienne'},
+  {p:'vie-quotidienne.html',s:'Civilisation',t:'L\'Œil au quotidien',c:'oeil conformité score surveillance hygiène mentale'},
+  {p:'vie-quotidienne.html',s:'Civilisation',t:'Rites vécus',c:'éveil ancrage lien passage fête cérémonie famille'},
+  {p:'vie-quotidienne.html',s:'Civilisation',t:'Castes et travail',c:'castes techniques certification ingénieurs scribes médecins'},
+  {p:'vie-quotidienne.html',s:'Civilisation',t:'Nourriture et loisirs',c:'nourriture synthétique loisirs tolérés sport arts liturgiques'},
+  {p:'deplacement.html',s:'Civilisation',t:'Corridors gravifiques',c:'corridors gravifiques lévitation transport urbain'},
+  {p:'deplacement.html',s:'Civilisation',t:'Wagons-cierges',c:'wagons cierges trains magnétiques inter-cités locomotive'},
+  {p:'deplacement.html',s:'Civilisation',t:'Barges orbitales',c:'barges orbitales ascenseurs élites transit'},
+  {p:'deplacement.html',s:'Civilisation',t:'Voies clandestines',c:'voies clandestines souterraines marché noir faucheuses'},
+  {p:'armes.html',s:'Civilisation',t:'Lames et armes blanches',c:'lames épées couteaux dagues combat rapproché'},
+  {p:'armes.html',s:'Civilisation',t:'Armes à énergie',c:'armes énergie plasma arc décharge karéth blindés'},
+  {p:'armes.html',s:'Civilisation',t:'Arsenal Main Gauche',c:'main gauche armes silencieuses improvisation neutralisation'},
+  {p:'vestimentaire.html',s:'Civilisation',t:'Livrées héraldiques',c:'livrées maisons héraldique armorial couleurs bannière'},
+  {p:'vestimentaire.html',s:'Civilisation',t:'Uniformes du Vornacht',c:'uniformes blanc main droite clergé prêtres tenues'},
+  {p:'vestimentaire.html',s:'Civilisation',t:'Mode des Profondeurs',c:'profondeurs mode clandestins implants visibles récupération'},
+  {p:'factions.html',s:'Factions',t:'La Main Droite',c:'main droite grades recrue caporal sergent lieutenant capitaine colonel général'},
+  {p:'factions.html',s:'Factions',t:'La Main Gauche',c:'main gauche ombre lame spectre fantôme voile silence'},
+  {p:'factions.html',s:'Factions',t:'Les Pestiférés',c:'pestiférés degrés mutation génétique anomalie télépathie régénération'},
+  {p:'factions.html',s:'Factions',t:'Les Grandes Maisons',c:'grandes maisons seigneur maître armées deniers secrets lois'},
+  {p:'factions.html',s:'Factions',t:'Les Faucheuses',c:'faucheuses opérateurs missions impossibles réputation'},
+  {p:'factions.html',s:'Factions',t:'Les Voix Interdites',c:'voix interdites philosophes auteurs résistance manifestes'},
+  {p:'fiches.html',s:'RP',t:'Fiches de personnages',c:'fiches joueurs candidature archétype création'},
+  {p:'regles.html',s:'Règles RP',t:'Format et charte',c:'règles format scènes god-play charte conduite'},
+  {p:'regles.html',s:'Règles RP',t:'Archétypes jouables',c:'archétypes main droite gauche prêtre scruteur noble chasseur faucheuse pestiféré'},
+];
+function srch(q){
+  if(!q||q.trim().length<2)return[];
+  const w=q.toLowerCase().trim().split(/\s+/);
+  const r=[];
+  for(const it of IDX){
+    const h=(it.t+' '+it.c+' '+it.s).toLowerCase();
+    const sc=w.filter(x=>h.includes(x)).length;
+    if(sc>0)r.push({...it,sc,snip:it.c.substring(0,80)});
+  }
+  return r.sort((a,b)=>b.sc-a.sc).slice(0,8);
+}
+function hl(t,q){
+  const w=q.toLowerCase().trim().split(/\s+/);
+  let r=t;
+  for(const x of w){const re=new RegExp('('+x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');r=r.replace(re,'<em>$1</em>')}
+  return r;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const cur=window.location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.s-link').forEach(a=>{if(a.getAttribute('href')===cur)a.classList.add('active')});
+  document.querySelectorAll('.acc-t').forEach(t=>{
+    t.addEventListener('click',()=>{
+      const b=t.nextElementSibling,o=t.classList.contains('open');
+      document.querySelectorAll('.acc-t').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open')});
+      if(!o){t.classList.add('open');b.classList.add('open')}
+    });
+  });
+  const ham=document.querySelector('.hamburger'),sb=document.querySelector('.sidebar'),ov=document.querySelector('.nav-overlay');
+  if(ham){
+    ham.addEventListener('click',()=>{sb.classList.toggle('open');ov.classList.toggle('open')});
+    ov.addEventListener('click',()=>{sb.classList.remove('open');ov.classList.remove('open')});
+  }
+  const inp=document.querySelector('.s-search input'),res=document.querySelector('.s-res');
+  if(inp&&res){
+    inp.addEventListener('input',()=>{
+      const q=inp.value,hits=srch(q);
+      if(!q||q.trim().length<2){res.classList.remove('on');res.innerHTML='';return}
+      res.innerHTML=hits.length?hits.map(h=>`<a class="sr-item" href="${h.p}"><div class="sr-p">${h.s}</div><div class="sr-t">${h.t}</div><div class="sr-s">${hl(h.snip,q)}…</div></a>`).join(''):'<div class="sr-0">[ AUCUN RÉSULTAT ]</div>';
+      res.classList.add('on');
+    });
+    document.addEventListener('click',e=>{if(!e.target.closest('.s-search'))res.classList.remove('on')});
+    inp.addEventListener('keydown',e=>{if(e.key==='Escape'){res.classList.remove('on');inp.value=''}});
+  }
+});
+</script>
+</body></html>
